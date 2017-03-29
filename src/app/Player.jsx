@@ -7,8 +7,9 @@ class Player extends React.Component {
 
 		this.state = {
 			imgsrc : "./images/jamiexx.jpg",
+			audiosrc : "./audio/jamiexx-gosh.mp3",
 			artist : "Jamie XX",
-			song : "Gosh",
+			song : "Gosh"
 		}
 	}
 
@@ -21,6 +22,9 @@ class Player extends React.Component {
 				<div>
 					{this.state.artist} - {this.state.song}
 				</div>
+				<audio controls autoPlay>
+					<source src={this.state.audiosrc} type="audio/mp3"/>
+				</audio>
 			</div>
 		);
 	}

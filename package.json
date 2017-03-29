@@ -4,8 +4,8 @@
   "description": "ReactJS music player",
   "main": "index.js",
   "scripts": {
-     "dev": "webpack -d --watch",
-     "build" : "webpack -p"
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "webpack": "^2.3.2"
+  },
+  "devDependencies": {
+    "json-loader": "^0.5.4"
   }
 }

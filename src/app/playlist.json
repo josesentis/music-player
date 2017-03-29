@@ -1,0 +1,22 @@
+{
+	 "playlist" : {
+		 "song1" : {
+		 	"imgsrc" : "./images/jamiexx.jpg",
+		 	"audiosrc" : "./audio/jamiexx-gosh.mp3",
+		 	"artist" : "Jamie XX",
+		 	"song" : "Gosh"
+		 },
+		 "song2": {
+		 	"imgsrc" : "./images/jamiexx.jpg",
+		 	"audiosrc" : "./audio/jamiexx-gosh.mp3",
+		 	"artist" : "Jamie XX",
+		 	"song" : "Gosh"
+		 },
+		 "song3": {
+		 	"imgsrc" : "./images/jamiexx.jpg",
+		 	"audiosrc" : "./audio/jamiexx-gosh.mp3",
+		 	"artist" : "Jamie XX",
+		 	"song" : "Gosh"
+		 }
+	 }
+}
