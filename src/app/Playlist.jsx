@@ -36,15 +36,19 @@ class Playlist extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div id="playlist">
 				<ul>
-					<li data-audiosrc="{this.state.playlist[0].audiosrc}" data-imgsrc="{this.state.playlist[0].imgsrc}">
+					<li className="current"
+						data-audiosrc={this.state.playlist[0].audiosrc}
+						data-imgsrc={this.state.playlist[0].imgsrc}>
 						{this.state.playlist[0].artist} - {this.state.playlist[0].song}
 					</li>
-					<li data-audiosrc="{this.state.playlist[1].audiosrc}" data-imgsrc="{this.state.playlist[1].imgsrc}">
+					<li data-audiosrc={this.state.playlist[1].audiosrc}
+						data-imgsrc={this.state.playlist[1].imgsrc}>
 						{this.state.playlist[1].artist} - {this.state.playlist[1].song}
 					</li>
-					<li data-audiosrc="{this.state.playlist[2].audiosrc}" data-imgsrc="{this.state.playlist[2].imgsrc}">
+					<li data-audiosrc={this.state.playlist[2].audiosrc}
+						data-imgsrc={this.state.playlist[2].imgsrc}>
 						{this.state.playlist[2].artist} - {this.state.playlist[2].song}
 					</li>
 				</ul>
