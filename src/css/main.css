@@ -2,3 +2,7 @@ body{
 	background: #131625;
 	color: #e1e1e1;
 }
+
+li.current{
+	color: yellow;
+}
