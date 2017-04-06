@@ -4,6 +4,14 @@ import Player from './Player.jsx';
 import Playlist from './Playlist.jsx';
 import myPlaylist from './playlist.json';
 
+
+/*
+* TODO: Missing features:
+*
+*	- A song finished by itself
+*	- Click random after listening to 3 songs. What happens? Investigate
+*	- Provar cançons diferents
+*/
 class App extends React.Component {
 	constructor() {
 		super();
@@ -11,16 +19,18 @@ class App extends React.Component {
 		this.state = {
 			playlist : myPlaylist.playlist,
 			currentSongIndex: 0,
+			currentRandomIndex: 0,
+			playedSongs: 0,
 			playerState : "stop",
 			loop : false,
 			random : false,
 			muted : false,
 			volume : 60,
+			randomOrder : []
 		}
 
 		this.handlePlay = this.handlePlay.bind(this);
 		this.handleStop = this.handleStop.bind(this);
-		this.handlePause = this.handlePause.bind(this);
 		this.handleVolume = this.handleVolume.bind(this);
 		this.toggleRandom = this.toggleRandom.bind(this);
 		this.toggleRepeat = this.toggleRepeat.bind(this);
@@ -28,57 +38,44 @@ class App extends React.Component {
 		this.handlePrevSong = this.handlePrevSong.bind(this);
 		this.handleNextSong = this.handleNextSong.bind(this);
 	}
-  setRandomOrders(){
-	  //if random is set, second round -> start from 0
-	  //if random not set, song playing. Current song -> order 0.
+  	setRandomOrders(){
 
-	  var songsList = document.querySelectorAll('#playlist li');
-	  var randomOrder = [];
+		console.log("Set random numbers");
+		//if random is set, second round -> start from 0
+		//if random not set, song playing. Current song -> order 0.
+		var tempIndexes = [];
+		var tempOrder = [];
 
-	  if(this.state.random || this.state.playerState == "stop"){
+		if(this.state.random || this.state.playerState == "stop"){
 
-		  for(var i=0; i < songsList.length; i++){
-			  randomOrder[i] = i;
-		  }
-		  songsList.forEach(function(item, index){
-			  var rand = Math.floor(Math.random()*randomOrder.length);
-			  item.setAttribute('data-random', randomOrder[rand]);
-			  randomOrder.splice(rand, 1);
-		  });
-	  }else{
+			for(var i=0; i < this.state.playlist.length; i++){
+				tempIndexes[i] = i;
+			}
+			for(var i=0; i < this.state.playlist.length; i++){
+				var rand = Math.floor(Math.random()*tempIndexes.length);
+				tempOrder[i] = tempIndexes[rand];
+				tempIndexes.splice(rand, 1);
+			}
+			this.state.randomOrder = tempOrder;
+		}else{
 
-		  for(var i=0; i < songsList.length; i++){
-			  randomOrder[i] = i;
-		  }
-		  randomOrder.splice(0, 1);
+			for(var i=0; i < this.state.playlist.length; i++){
+				tempIndexes[i] = i;
+			}
+			tempOrder[0] = this.state.currentSongIndex;
+			tempIndexes.splice(this.state.currentSongIndex, 1);
 
-		  songsList.forEach(function(item, index){
-			  var rand = Math.floor(Math.random()*randomOrder.length);
-
-			  if(item.className.indexOf('current') > -1){
-				  item.setAttribute('data-random', 0);
-			  }else{
-				  item.setAttribute('data-random', randomOrder[rand]);
-				  randomOrder.splice(rand, 1);
-			  }
-		  });
-	  }
-
-	  document.querySelector('#playlist li.current').classList.remove('current')
-	  document.querySelector('#playlist li[data-random="0"]').classList.add('current')
-  }
-	removeRandomOrders(){
-
-		var songsList = document.querySelectorAll('#playlist li');
-		songsList.forEach(function(item, index){
-			item.removeAttribute('data-random');
-		});
-	}
+			for(var i=0; i < this.state.playlist.length-1; i++){
+				var rand = Math.floor(Math.random()*(tempIndexes.length-1));
+				tempOrder[i+1] = tempIndexes[rand];
+				tempIndexes.splice(rand, 1);
+			}
+			this.state.randomOrder = tempOrder;
+		}
+		this.setState({ currentRandomIndex : 0 });
+		this.setState({ currentSongIndex : this.state.currentSongIndex });
+  	}
 	handlePlay(event){
-		event.preventDefault();
-		this.setState({ playerState : 'play' });
-	}
-	handlePause(event){
 		event.preventDefault();
 		if( this.state.playerState == 'play'){
 	  		this.setState({ playerState : 'pause' });
@@ -104,21 +101,18 @@ class App extends React.Component {
 	}
 	toggleRandom(event){
 		event.preventDefault();
-
 		if(!this.state.random){
 			this.setRandomOrders();
-		}else{
-			this.removeRandomOrders();
 		}
 		this.setState({ random : !this.state.random });
 	}
 	handlePrevSong(event){
 		event.preventDefault();
-
 		if(!this.state.random){
 			if(this.state.currentSongIndex > 0){
 				this.setState({ currentSongIndex : this.state.currentSongIndex - 1});
 			}
+			this.state.playedSongs--;
 		}
 	}
 	handleNextSong(event){
@@ -126,59 +120,31 @@ class App extends React.Component {
 
 		if(this.state.playerState != "stop"){
 
-			if(this.state.currentSongIndex < this.state.playlist.length - 1){
-				this.setState({ currentSongIndex : this.state.currentSongIndex + 1});
+			console.log("next");
+
+			var nextSong;
+
+			if(this.state.random){
+				console.log("Is random");
+
+				this.state.currentRandomIndex++;
+				nextSong = this.state.randomOrder[this.state.currentRandomIndex];
+			}else{
+				console.log("No random");
+				nextSong = this.state.currentSongIndex + 1;
+			}
+
+			console.log("Next song: " + nextSong);
+
+			if(this.state.playedSongs < this.state.playlist.length - 1){
+				this.setState({ currentSongIndex : nextSong});
 			}else if(this.state.currentSongIndex == this.state.playlist.length - 1 && this.state.loop){
 				this.setState({ currentSongIndex : 0});
 			}else{
 				this.setState({ playerState : "stop" });
 				this.setState({ currentSongIndex : 0});
 			}
-		//   var orderType = "";
-		//   var nextInt;
-		  //
-		//   if(this.state.random){
-		// 	  orderType = 'data-random';
-		//   }else{
-		// 	  orderType = 'data-order';
-		//   }
-
-		//   console.log(orderType);
-
-		//   nextInt = parseInt(document.querySelector('#playlist li.current').getAttribute(orderType));
-		//   nextInt++;
-		  //
-		//   console.log(nextInt);
-		//   console.log(document.querySelector('#playlist li[' + orderType + '="' + nextInt + '"]'));
-		  //
-		//   if(document.querySelector('#playlist li[' + orderType + '="' + nextInt + '"]') != null){
-		  //
-		// 	  var nextNode = document.querySelector('#playlist li[' + orderType + '="' + nextInt + '"]');
-		  //
-		// 	  var audio = nextNode.getAttribute('data-audiosrc');
-		// 	  var img = nextNode.getAttribute('data-imgsrc');
-		  //
-		// 	  this.setSong(img, audio);
-		  //
-		// 	  document.querySelector('#playlist li.current').classList.remove('current');
-		// 	  nextNode.classList.add("current");
-		//   }else if(this.state.loop){
-		  //
-		// 	  //Setting random order
-		// 	  if(this.state.random){
-		// 		  this.setRandomOrders();
-		// 	  }
-		  //
-		// 	  var firstNode = document.querySelector('#playlist li[' + orderType + '="0"]');
-		  //
-		// 	  var audio = firstNode.getAttribute('data-audiosrc');
-		// 	  var img = firstNode.getAttribute('data-imgsrc');
-		  //
-		// 	  this.setSong(img, audio);
-		  //
-		// 	  document.querySelector('#playlist li.current').classList.remove('current');
-		// 	  firstNode.classList.add("current");
-		//   }
+			this.state.playedSongs++;
 		}
 	}
   render () {
@@ -192,15 +158,12 @@ class App extends React.Component {
 			<div id="controls">
 				<div>
 					<a href="" onClick={this.handlePlay}>
-						<i className="fa fa-play" aria-hidden="true"></i> play
+						<i className={this.state.playerState == 'play' ? "fa fa-pause" : "fa fa-play"} aria-hidden="true"></i>
+							{this.state.playerState == 'play' ? 'pause' : 'play'}
 							&nbsp;
 					</a>
 					<a href="" onClick={this.handleStop}>
 						<i className="fa fa-stop" aria-hidden="true"></i> stop
-							&nbsp;
-					</a>
-					<a href="" onClick={this.handlePause}>
-						<i className="fa fa-pause" aria-hidden="true"></i> pause
 							&nbsp;
 					</a>
 					<a href="" onClick={this.toggleRepeat}>

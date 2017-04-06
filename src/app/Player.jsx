@@ -4,11 +4,8 @@ class Player extends React.Component {
 
 	constructor() {
 		super();
-
 		this.state = {
-
 		}
-
 	}
 	componentWillReceiveProps(newProps) {
 		switch (newProps.playing) {
@@ -26,7 +23,6 @@ class Player extends React.Component {
 				this._player.currentTime = 0;
 				break;
 		}
-
 		if(newProps.volume){
 			this._player.volume = newProps.volume;
 		}
