@@ -16,5 +16,17 @@
 		"audiosrc" : "./audio/jamiexx-gosh.mp3",
 		"singer" : "Jamie XX",
 		"title" : "Gosh3"
+	},
+	{
+	   "imgsrc" : "./images/jamiexx.jpg",
+	   "audiosrc" : "./audio/jamiexx-gosh.mp3",
+	   "singer" : "Jamie XX",
+	   "title" : "Gosh4"
+	},
+	{
+	   "imgsrc" : "./images/jamiexx.jpg",
+	   "audiosrc" : "./audio/jamiexx-gosh.mp3",
+	   "singer" : "Jamie XX",
+	   "title" : "Gosh5"
 	}]
 }

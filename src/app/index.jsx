@@ -5,13 +5,14 @@ import Playlist from './Playlist.jsx';
 import myPlaylist from './playlist.json';
 
 
-/*
-* TODO: Missing features:
+/**
+** TODO: Missing features / issues:
 *
-*	- A song finished by itself
-*	- Click random after listening to 3 songs. What happens? Investigate
-*	- Provar cançons diferents
-*/
+*	- A song finished by itself. Next one starts
+*	- Click random after listening to 3 songs. What happens? Investigate competence. (Visited songs don't play?)
+*	- Test with different songs
+*
+**/
 class App extends React.Component {
 	constructor() {
 		super();
@@ -39,10 +40,11 @@ class App extends React.Component {
 		this.handleNextSong = this.handleNextSong.bind(this);
 	}
   	setRandomOrders(){
-
-		console.log("Set random numbers");
 		//if random is set, second round -> start from 0
 		//if random not set, song playing. Current song -> order 0.
+
+		console.log("Set random orders");
+
 		var tempIndexes = [];
 		var tempOrder = [];
 
@@ -76,8 +78,26 @@ class App extends React.Component {
 		this.setState({ currentSongIndex : this.state.currentSongIndex });
   	}
 	handlePlay(event){
+
+		console.log("\n");
+		console.log("-------- Play --------");
+		console.log("Current state: ");
+		console.log(this.state.playerState);
+
 		event.preventDefault();
-		if( this.state.playerState == 'play'){
+
+		if( this.state.playerState == 'stop'){
+
+			if(this.state.random){
+				this.setRandomOrders();
+				this.setState({ currentSongIndex : this.state.randomOrder[0] });
+				this.setState({ currentRandomIndex : 0 });
+			}else{
+				this.setState({ currentSongIndex : 0 });
+			}
+	  		this.setState({ playerState : 'play' });
+			this.setState({ playedSongs : 0 });
+		}else if( this.state.playerState == 'play'){
 	  		this.setState({ playerState : 'pause' });
 		}else{
 			this.setState({ playerState : 'play' });
@@ -103,6 +123,11 @@ class App extends React.Component {
 		event.preventDefault();
 		if(!this.state.random){
 			this.setRandomOrders();
+			//We are reordering (at the moment) all the songs, so we need to start again playing
+			this.setState({ playedSongs : 0 });
+		}else{
+			//Random removed. Assume n - i songs left.
+			this.setState({ playedSongs : this.state.currentSongIndex });
 		}
 		this.setState({ random : !this.state.random });
 	}
@@ -118,87 +143,117 @@ class App extends React.Component {
 	handleNextSong(event){
 		event.preventDefault();
 
+		console.log("\n");
+		console.log("-------- Next --------");
+
 		if(this.state.playerState != "stop"){
 
-			console.log("next");
+			console.log("!= stop");
 
 			var nextSong;
-
 			if(this.state.random){
-				console.log("Is random");
-
 				this.state.currentRandomIndex++;
 				nextSong = this.state.randomOrder[this.state.currentRandomIndex];
 			}else{
-				console.log("No random");
 				nextSong = this.state.currentSongIndex + 1;
 			}
 
-			console.log("Next song: " + nextSong);
+			console.log("Next song: ");
+			console.log(nextSong);
+
+			console.log("Played songs: ");
+			console.log(nextSong);
 
 			if(this.state.playedSongs < this.state.playlist.length - 1){
 				this.setState({ currentSongIndex : nextSong});
-			}else if(this.state.currentSongIndex == this.state.playlist.length - 1 && this.state.loop){
-				this.setState({ currentSongIndex : 0});
+				this.state.playedSongs++;
+			}else if(this.state.playedSongs == this.state.playlist.length - 1 && this.state.loop){
+
+				//Init playlist when looping. Setting new random orders.
+				if(this.state.random){
+					this.setRandomOrders();
+					this.setState({ currentSongIndex : this.state.randomOrder[0] });
+					this.setState({ currentRandomIndex : 0 });
+					this.setState({ playedSongs : 0});
+				}else{
+					this.setState({ currentSongIndex : 0});
+					this.setState({ playedSongs : 0});
+				}
 			}else{
+
+
+				console.log("Stopping");
+
 				this.setState({ playerState : "stop" });
-				this.setState({ currentSongIndex : 0});
 			}
-			this.state.playedSongs++;
 		}
 	}
-  render () {
-    return (
-		<div>
-			<Player song={this.state.playlist[this.state.currentSongIndex]}
-			 	muted={this.state.muted}
-				playing={this.state.playerState}
-				volume={(this.state.volume / 100)}
-			/>
-			<div id="controls">
-				<div>
-					<a href="" onClick={this.handlePlay}>
-						<i className={this.state.playerState == 'play' ? "fa fa-pause" : "fa fa-play"} aria-hidden="true"></i>
-							{this.state.playerState == 'play' ? 'pause' : 'play'}
-							&nbsp;
-					</a>
-					<a href="" onClick={this.handleStop}>
-						<i className="fa fa-stop" aria-hidden="true"></i> stop
-							&nbsp;
-					</a>
-					<a href="" onClick={this.toggleRepeat}>
-						<i className="fa fa-repeat" aria-hidden="true"></i>
-						repeat &nbsp;
-					</a>
-					<a href="" onClick={this.toggleRandom}>
-						<i className="fa fa-repeat" aria-hidden="true"></i>
-						random &nbsp;
-					</a>
-					<a href="" onClick={this.toggleMuted}>
-						<i className="fa fa-repeat" aria-hidden="true"></i>
-						muted
-					</a>
-					<input type="range" id="volume" name="volume" step="1"
-						onChange={this.handleVolume} value={this.state.muted ? 0 : this.state.volume} max="100"/>
+	render () {
+
+		console.log("\n");
+		console.log("-------- Render --------");
+		console.log("Next state: ");
+		console.log(this.state.playerState);
+		console.log("Current song: ");
+		console.log(this.state.currentSongIndex);
+		console.log("playedSongs: ");
+		console.log(this.state.playedSongs);
+		console.log("Random: ");
+		console.log(this.state.random);
+		console.log("Loop: ");
+		console.log(this.state.loop);
+
+		return (
+			<div>
+				<Player song={this.state.playlist[this.state.currentSongIndex]}
+				 	muted={this.state.muted}
+					playing={this.state.playerState}
+					volume={(this.state.volume / 100)}
+				/>
+				<div id="controls">
+					<div>
+						<a href="" onClick={this.handlePlay}>
+							<i className={this.state.playerState == 'play' ? "fa fa-pause" : "fa fa-play"} aria-hidden="true"></i>
+								{this.state.playerState == 'play' ? 'pause' : 'play'}
+								&nbsp;
+						</a>
+						<a href="" onClick={this.handleStop}>
+							<i className="fa fa-stop" aria-hidden="true"></i> stop
+								&nbsp;
+						</a>
+						<a href="" onClick={this.toggleRepeat}>
+							<i className="fa fa-repeat" aria-hidden="true"></i>
+							repeat &nbsp;
+						</a>
+						<a href="" onClick={this.toggleRandom}>
+							<i className="fa fa-repeat" aria-hidden="true"></i>
+							random &nbsp;
+						</a>
+						<a href="" onClick={this.toggleMuted}>
+							<i className="fa fa-repeat" aria-hidden="true"></i>
+							muted
+						</a>
+						<input type="range" id="volume" name="volume" step="1"
+							onChange={this.handleVolume} value={this.state.muted ? 0 : this.state.volume} max="100"/>
+					</div>
+					<div>
+						<a href="" onClick={this.handlePrevSong}>
+							<i className="fa fa-step-backward" aria-hidden="true"></i>
+							prev
+						</a>
+						<a href="" onClick={this.handleNextSong}>
+							<i className="fa fa-step-forward" aria-hidden="true"></i>
+							next
+						</a>
+					</div>
 				</div>
-				<div>
-					<a href="" onClick={this.handlePrevSong}>
-						<i className="fa fa-step-backward" aria-hidden="true"></i>
-						prev
-					</a>
-					<a href="" onClick={this.handleNextSong}>
-						<i className="fa fa-step-forward" aria-hidden="true"></i>
-						next
-					</a>
-				</div>
+				<Playlist songs={this.state.playlist}
+					playing={this.state.playerState}
+					currentSongIndex={this.state.currentSongIndex}
+				/>
 			</div>
-			<Playlist songs={this.state.playlist}
-				playing={this.state.playerState}
-				currentSongIndex={this.state.currentSongIndex}
-			/>
-		</div>
-	);
-  }
+		);
+	}
 }
 
 render(<App/>, document.getElementById('app'));

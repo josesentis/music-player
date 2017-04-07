@@ -17,15 +17,7 @@ class Playlist extends React.Component {
 	}
 
 	renderPlaylist(currentSongIndex, playing) {
-		//
-		// console.log("currentSongIndex");
-		// console.log(currentSongIndex);
-
 		return this.props.songs.map(function(item, index){
-
-			// console.log("index");
-			// console.log(index);
-
 			return (
 				<li key={index}
 					className={parseInt(currentSongIndex) == index && playing != "stop" ? 'current' : ''}
