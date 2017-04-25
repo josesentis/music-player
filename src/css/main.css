@@ -2,7 +2,22 @@ body{
 	background: #131625;
 	color: #e1e1e1;
 }
-
-li.current{
+.playlists{
+	margin-top: 60px;
+}
+ul.selected{
+	background-color: rgba(255,255,255, 0.1);
+}
+ul.no-selected:hover{
+	background-color: rgba(255,255,255, 0.1);
+}
+li{
+	border: 1px solid transparent;
+}
+ul.selected li.current{
 	color: yellow;
+	border: 1px solid yellow;
+}
+ul.selected li:hover{
+	border: 1px solid yellow;
 }

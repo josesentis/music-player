@@ -2,12 +2,13 @@ import React from 'react';
 import {render} from 'react-dom';
 import Player from './Player.jsx';
 import Playlist from './Playlist.jsx';
-import myPlaylist from './playlist.json';
+import myPlaylist from './playlist2.json';
 
 
 /**
 ** TODO: Missing features / issues:
 *
+*	- Add button prev / next
 *	- A song finished by itself. Next one starts
 *	- Click random after listening to 3 songs. What happens? Investigate competence. (Visited songs don't play?)
 *	- Test with different songs
@@ -19,6 +20,8 @@ class App extends React.Component {
 
 		this.state = {
 			playlist : myPlaylist.playlist,
+			currentPlaylist : myPlaylist.playlist[0].list,
+			currentPlaylistIndex: 0,
 			currentSongIndex: 0,
 			currentRandomIndex: 0,
 			playedSongs: 0,
@@ -50,10 +53,10 @@ class App extends React.Component {
 
 		if(this.state.random || this.state.playerState == "stop"){
 
-			for(var i=0; i < this.state.playlist.length; i++){
+			for(var i=0; i < this.state.currentPlaylist.length; i++){
 				tempIndexes[i] = i;
 			}
-			for(var i=0; i < this.state.playlist.length; i++){
+			for(var i=0; i < this.state.currentPlaylist.length; i++){
 				var rand = Math.floor(Math.random()*tempIndexes.length);
 				tempOrder[i] = tempIndexes[rand];
 				tempIndexes.splice(rand, 1);
@@ -61,13 +64,13 @@ class App extends React.Component {
 			this.state.randomOrder = tempOrder;
 		}else{
 
-			for(var i=0; i < this.state.playlist.length; i++){
+			for(var i=0; i < this.state.currentPlaylist.length; i++){
 				tempIndexes[i] = i;
 			}
 			tempOrder[0] = this.state.currentSongIndex;
 			tempIndexes.splice(this.state.currentSongIndex, 1);
 
-			for(var i=0; i < this.state.playlist.length-1; i++){
+			for(var i=0; i < this.state.currentPlaylist.length-1; i++){
 				var rand = Math.floor(Math.random()*(tempIndexes.length-1));
 				tempOrder[i+1] = tempIndexes[rand];
 				tempIndexes.splice(rand, 1);
@@ -164,10 +167,10 @@ class App extends React.Component {
 			console.log("Played songs: ");
 			console.log(nextSong);
 
-			if(this.state.playedSongs < this.state.playlist.length - 1){
+			if(this.state.playedSongs < this.state.currentPlaylist.length - 1){
 				this.setState({ currentSongIndex : nextSong});
 				this.state.playedSongs++;
-			}else if(this.state.playedSongs == this.state.playlist.length - 1 && this.state.loop){
+			}else if(this.state.playedSongs == this.state.currentPlaylist.length - 1 && this.state.loop){
 
 				//Init playlist when looping. Setting new random orders.
 				if(this.state.random){
@@ -194,6 +197,8 @@ class App extends React.Component {
 		console.log("-------- Render --------");
 		console.log("Next state: ");
 		console.log(this.state.playerState);
+		console.log("Current playlist: ");
+		console.log(this.state.currentPlaylistIndex);
 		console.log("Current song: ");
 		console.log(this.state.currentSongIndex);
 		console.log("playedSongs: ");
@@ -205,7 +210,7 @@ class App extends React.Component {
 
 		return (
 			<div>
-				<Player song={this.state.playlist[this.state.currentSongIndex]}
+				<Player song={this.state.playlist[this.state.currentPlaylistIndex].list[this.state.currentSongIndex]}
 				 	muted={this.state.muted}
 					playing={this.state.playerState}
 					volume={(this.state.volume / 100)}
@@ -247,9 +252,10 @@ class App extends React.Component {
 						</a>
 					</div>
 				</div>
-				<Playlist songs={this.state.playlist}
+				<Playlist playlist={this.state.playlist}
 					playing={this.state.playerState}
 					currentSongIndex={this.state.currentSongIndex}
+					currentPlaylistIndex={this.state.currentPlaylistIndex}
 				/>
 			</div>
 		);

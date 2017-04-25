@@ -6,18 +6,19 @@ class Playlist extends React.Component {
 		super(props);
 
 		this.state = {
+			currentPlaylistIndex : props.currentPlaylistIndex,
 			currentSongIndex : props.currentSongIndex,
 			playing : props.playing
 		}
 	}
-
 	componentWillReceiveProps(newProps) {
 		this.setState({ playing : newProps.playing });
+		this.setState({ currentPlaylistIndex : newProps.currentPlaylistIndex });
 		this.setState({ currentSongIndex : newProps.currentSongIndex });
 	}
+	renderPlaylist(list, currentSongIndex, playing){
 
-	renderPlaylist(currentSongIndex, playing) {
-		return this.props.songs.map(function(item, index){
+		return list.map(function(item, index){
 			return (
 				<li key={index}
 					className={parseInt(currentSongIndex) == index && playing != "stop" ? 'current' : ''}
@@ -27,15 +28,30 @@ class Playlist extends React.Component {
 					{item.singer} - {item.title}
 				</li>
 			);
-		});
+		})
+	}
+	renderMultiplePlaylist(currentPlaylistIndex, currentSongIndex, playing) {
+
+		return this.props.playlist.map(function(item, index){
+			return (
+				<div key={index}>
+					<p>
+						{item.name}
+					</p>
+					<ul className={parseInt(currentPlaylistIndex) == index && playing != "stop" ? 'selected' : 'no-selected'}>
+						{this.renderPlaylist(item.list, currentSongIndex, playing)}
+					</ul>
+				</div>
+			);
+		}.bind(this));
 	}
 	render() {
 		return (
-			<div id="playlist">
+			<div id="playlist" className="playlists">
 				Playlist
-				<ul>
-					{this.renderPlaylist(this.state.currentSongIndex, this.state.playing)}
-				</ul>
+				<div>
+					{this.renderMultiplePlaylist(this.state.currentPlaylistIndex, this.state.currentSongIndex, this.state.playing)}
+				</div>
 			</div>
 		);
 	}
