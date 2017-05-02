@@ -34,11 +34,11 @@ class Playlist extends React.Component {
 
 		return this.props.playlist.map(function(item, index){
 			return (
-				<div key={index}>
+				<div key={index} className={'playlist ' + (parseInt(currentPlaylistIndex) == index && playing != 'stop' ? 'selected' : 'no-selected')}>
 					<p>
 						{item.name}
 					</p>
-					<ul className={parseInt(currentPlaylistIndex) == index && playing != "stop" ? 'selected' : 'no-selected'}>
+					<ul>
 						{this.renderPlaylist(item.list, currentSongIndex, playing)}
 					</ul>
 				</div>
