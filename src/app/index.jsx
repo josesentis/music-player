@@ -1,8 +1,8 @@
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom';
 import Player from './Player.jsx';
 import Playlist from './Playlist.jsx';
-import myPlaylist from './playlist2.json';
+import myPlaylist from '../assets/data/playlist2.json';
 
 
 /**
@@ -263,4 +263,4 @@ class App extends React.Component {
 	}
 }
 
-render(<App/>, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
