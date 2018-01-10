@@ -5,7 +5,9 @@ class Controls extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {}
+		this.state = {
+			playerState: props.playerState
+		}
 
 		this.handlePlay = props.handlePlay;
 		this.handleStop = props.handleStop;
@@ -16,7 +18,9 @@ class Controls extends React.Component {
 		this.handlePrevSong = props.handlePrevSong;
 		this.handleNextSong = props.handleNextSong;
 	}
-
+	componentWillReceiveProps(newProps) {
+        this.setState({ playerState: newProps.playerState });
+    }
 	render() {
 		return (
 			<div id="controls">

@@ -8,7 +8,9 @@ class Playlist extends React.Component {
             currentPlaylistIndex: props.currentPlaylistIndex,
             currentSongIndex: props.currentSongIndex,
             playing: props.playing
-        };
+        }
+
+		this.handleChangeSong = props.handleChangeSong;
     }
     componentWillReceiveProps(newProps) {
         this.setState({ playing: newProps.playing });
@@ -16,23 +18,26 @@ class Playlist extends React.Component {
         this.setState({ currentSongIndex: newProps.currentSongIndex });
     }
     renderPlaylist(list, currentSongIndex, playing) {
-        return list.map(function(item, index) {
-            return (
-                <li
-                    key={index}
-                    className={
-                        parseInt(currentSongIndex) == index && playing != "stop"
-                            ? "current"
-                            : ""
-                    }
-                    data-audiosrc={item.audiosrc}
-                    data-imgsrc={item.imgsrc}
-                    data-order={index}
-                >
-                    {item.singer} - {item.title}
-                </li>
-            );
-        });
+        return list.map(
+			function(item, index) {
+	            return (
+	                <li
+	                    key={index}
+	                    className={
+	                        parseInt(currentSongIndex) == index && playing != "stop"
+	                            ? "current"
+	                            : ""
+	                    }
+	                    data-audiosrc={item.audiosrc}
+	                    data-imgsrc={item.imgsrc}
+	                    data-order={index}
+						onClick={this.handleChangeSong}
+	                >
+	                    {item.singer} - {item.title}
+	                </li>
+	            );
+        	}.bind(this)
+		);
     }
     renderMultiplePlaylist(currentPlaylistIndex, currentSongIndex, playing) {
         return this.props.playlist.map(
