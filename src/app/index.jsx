@@ -1,5 +1,8 @@
+require('../assets/scss/app.scss');
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Controls from './Controls.jsx';
 import Player from './Player.jsx';
 import Playlist from './Playlist.jsx';
 import myPlaylist from '../assets/data/playlist2.json';
@@ -42,6 +45,7 @@ class App extends React.Component {
 		this.handlePrevSong = this.handlePrevSong.bind(this);
 		this.handleNextSong = this.handleNextSong.bind(this);
 	}
+
   	setRandomOrders(){
 		//if random is set, second round -> start from 0
 		//if random not set, song playing. Current song -> order 0.
@@ -216,43 +220,16 @@ class App extends React.Component {
 					playing={this.state.playerState}
 					volume={(this.state.volume / 100)}
 				/>
-				<div id="controls">
-					<div>
-						<a href="" onClick={this.handlePlay}>
-							<i className={this.state.playerState == 'play' ? "fa fa-pause" : "fa fa-play"} aria-hidden="true"></i>
-								{this.state.playerState == 'play' ? 'pause' : 'play'}
-								&nbsp;
-						</a>
-						<a href="" onClick={this.handleStop}>
-							<i className="fa fa-stop" aria-hidden="true"></i> stop
-								&nbsp;
-						</a>
-						<a href="" onClick={this.toggleRepeat}>
-							<i className="fa fa-repeat" aria-hidden="true"></i>
-							repeat &nbsp;
-						</a>
-						<a href="" onClick={this.toggleRandom}>
-							<i className="fa fa-repeat" aria-hidden="true"></i>
-							random &nbsp;
-						</a>
-						<a href="" onClick={this.toggleMuted}>
-							<i className="fa fa-repeat" aria-hidden="true"></i>
-							muted
-						</a>
-						<input type="range" id="volume" name="volume" step="1"
-							onChange={this.handleVolume} value={this.state.muted ? 0 : this.state.volume} max="100"/>
-					</div>
-					<div>
-						<a href="" onClick={this.handlePrevSong}>
-							<i className="fa fa-step-backward" aria-hidden="true"></i>
-							prev
-						</a>
-						<a href="" onClick={this.handleNextSong}>
-							<i className="fa fa-step-forward" aria-hidden="true"></i>
-							next
-						</a>
-					</div>
-				</div>
+				<Controls handlePlay={this.handlePlay}
+					handlePlay={this.handlePlay}
+					handleStop={this.handleStop}
+					handleVolume={this.handleVolume}
+					toggleRandom={this.toggleRandom}
+					toggleRepeat={this.toggleRepeat}
+					toggleMuted={this.toggleMuted}
+					handlePrevSong={this.handlePrevSong}
+					handleNextSong={this.handleNextSong}
+				/>
 				<Playlist playlist={this.state.playlist}
 					playing={this.state.playerState}
 					currentSongIndex={this.state.currentSongIndex}

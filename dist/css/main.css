@@ -1,3 +1,23 @@
-
-
-/*# sourceMappingURL=main.css.map */
+/*body{
+	background: #131625;
+	color: #e1e1e1;
+}
+.playlists{
+	margin-top: 60px;
+}
+.playlist.selected{
+	background-color: rgba(255,255,255, 0.1);
+}
+.playlist.no-selected:hover{
+	background-color: rgba(255,255,255, 0.1);
+}
+.playlist li{
+	border: 1px solid transparent;
+}
+.playlist.selected li.current{
+	color: yellow;
+	border: 1px solid yellow;
+}
+.playlist.selected li:hover{
+	border: 1px solid yellow;
+}*/
