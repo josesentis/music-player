@@ -2,9 +2,9 @@ require('../assets/scss/app.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Controls from './Controls.jsx';
-import Player from './Player.jsx';
-import Playlist from './Playlist.jsx';
+import Controls from './components/Controls/index.jsx/index.js';
+import Player from './components/Player/index.jsx/index.js.js';
+import Playlist from './components/Playlist/index.jsx/index.js';
 import myPlaylist from '../assets/data/playlist2.json';
 
 
