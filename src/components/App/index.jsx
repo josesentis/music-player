@@ -7,6 +7,13 @@ import playlist from '../../data/playlist.json';
 
 import './App.css';
 
+/**
+ *
+ *  TODO:
+ *  - Random orders.
+ *  - Next not loading new song.
+ *
+ **/
 class App extends React.Component {
   state = {
     currentPlaylist: playlist.playlist[0].list,
@@ -33,17 +40,78 @@ class App extends React.Component {
     this.setState({ random: !this.state.random });
   }
 
-	toggleRepeat = () => {
-		this.setState({ repeat: !this.state.repeat });
-	}
+  toggleRepeat = () => {
+    this.setState({ repeat: !this.state.repeat });
+  }
+
+  handleNextSong = () => {
+    if (this.state.playerState !== "stop") {
+      let nextSong = this.state.currentSongIndex + 1;
+
+      if (this.state.currentSongIndex + 1 < this.state.currentPlaylist.length) {
+        nextSong = this.state.currentSongIndex + 1;
+      } else {
+        nextSong = 0;
+
+        if (!this.state.repeat) {
+          this.setState({ playerState: "stop" });
+        }
+      }
+
+      this.setState({ currentSongIndex: nextSong });
+
+      // if (this.state.random) {
+      //   this.state.currentRandomIndex++;
+      //   nextSong = this.state.randomOrder[this.state.currentRandomIndex];
+      // } else {
+      // nextSong = this.state.currentSongIndex + 1;
+      // }
+
+      // if (this.state.playedSongs < this.state.currentPlaylist.length - 1) {
+      //   this.setState({ currentSongIndex: nextSong });
+      //   this.state.playedSongs++;
+      // } else if (this.state.playedSongs === this.state.currentPlaylist.length - 1 && this.state.loop) {
+
+      //Init playlist when looping. Setting new random orders.
+      // if (this.state.random) {
+      //   this.setRandomOrders();
+      //   this.setState({ currentSongIndex: this.state.randomOrder[0] });
+      //   this.setState({ currentRandomIndex: 0 });
+      //   this.setState({ playedSongs: 0 });
+      // } else {
+      // this.setState({ currentSongIndex: 0 });
+      // this.setState({ playedSongs: 0 });
+      // }
+      // } else {
+      //   this.setState({ playerState: "stop" });
+    }
+  }
+
+  handlePrevSong = () => {
+    // if (!this.state.random) {
+    if (this.state.currentSongIndex > 0) {
+      this.setState({ currentSongIndex: this.state.currentSongIndex - 1 });
+    }
+
+    // this.state.playedSongs--;
+    // }
+  }
+
+  handleChangeSong = () => {
+    console.log("Loading new song ... ");
+  }
 
   render = () => {
     const { currentSongIndex, currentPlaylist } = this.state;
+
+    console.log("Render", currentPlaylist[currentSongIndex]);
 
     return (
       <Player
         song={currentPlaylist[currentSongIndex]}
         toggleRandom={this.toggleRandom}
+        handleNextSong={this.handleNextSong}
+        handlePrevSong={this.handlePrevSong}
       />
     );
   }
@@ -90,59 +158,6 @@ class App extends React.Component {
   //   this.setState({ currentSongIndex: this.state.currentSongIndex });
   // }
 
-  // handleChangeSong = event => {
-  //   console.log("Changing song");
-  // }
-
-  // handleNextSong = event => {
-  //   event.preventDefault();
-
-  //   console.log("\n");
-  //   console.log("-------- Next --------");
-
-  //   if (this.state.playerState != "stop") {
-
-  //     console.log("!= stop");
-
-  //     var nextSong;
-  //     if (this.state.random) {
-  //       this.state.currentRandomIndex++;
-  //       nextSong = this.state.randomOrder[this.state.currentRandomIndex];
-  //     } else {
-  //       nextSong = this.state.currentSongIndex + 1;
-  //     }
-
-  //     console.log("Next song: ");
-  //     console.log(nextSong);
-
-  //     console.log("Played songs: ");
-  //     console.log(nextSong);
-
-  //     if (this.state.playedSongs < this.state.currentPlaylist.length - 1) {
-  //       this.setState({ currentSongIndex: nextSong });
-  //       this.state.playedSongs++;
-  //     } else if (this.state.playedSongs == this.state.currentPlaylist.length - 1 && this.state.loop) {
-
-  //       //Init playlist when looping. Setting new random orders.
-  //       if (this.state.random) {
-  //         this.setRandomOrders();
-  //         this.setState({ currentSongIndex: this.state.randomOrder[0] });
-  //         this.setState({ currentRandomIndex: 0 });
-  //         this.setState({ playedSongs: 0 });
-  //       } else {
-  //         this.setState({ currentSongIndex: 0 });
-  //         this.setState({ playedSongs: 0 });
-  //       }
-  //     } else {
-
-
-  //       console.log("Stopping");
-
-  //       this.setState({ playerState: "stop" });
-  //     }
-  //   }
-  // }
-
   // handlePlay = event => {
   //   console.log("\n");
   //   console.log("-------- Play --------");
@@ -166,18 +181,6 @@ class App extends React.Component {
   //     this.setState({ playerState: 'pause' });
   //   } else {
   //     this.setState({ playerState: 'play' });
-  //   }
-  // }
-
-  // handlePrevSong = event => {
-  //   event.preventDefault();
-
-  //   if (!this.state.random) {
-  //     if (this.state.currentSongIndex > 0) {
-  //       this.setState({ currentSongIndex: this.state.currentSongIndex - 1 });
-  //     }
-
-  //     this.state.playedSongs--;
   //   }
   // }
 }
