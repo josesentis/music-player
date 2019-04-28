@@ -25,7 +25,7 @@ class Player extends React.Component {
     //   this.setState({ playedSongs: 0 });
     //   this._player.play();
     // } else
-    if (playerState == 'play') {
+    if (playerState === 'play') {
       this.setState({ playerState: 'pause' });
       this._player.pause();
 		} else {
@@ -42,13 +42,13 @@ class Player extends React.Component {
 
 	toggleMute = () => {
 		this.setState({ muted: !this.state.muted });
-	}
+  }
 
   render() {
-    const { song } = this.props;
+    const { song, toggleRandom, toggleRepeat } = this.props;
     const { muted, playerState } = this.state;
 
-    console.log(playerState);
+    console.log(this.state);
     // if (volume) {
     //   this._player.volume = volume;
     // }
@@ -77,7 +77,9 @@ class Player extends React.Component {
           play={this.handlePlay}
           playerState={playerState}
           stop={this.handleStop}
-          mute={this.handleMute}
+          mute={this.toggleMute}
+          random={toggleRandom}
+          repeat={toggleRepeat}
         />
       </div>
     );

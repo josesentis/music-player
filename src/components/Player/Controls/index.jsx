@@ -6,18 +6,17 @@ class Controls extends React.Component {
       <div id="controls">
         <div>
           <button onClick={this.props.play}>
-            {this.props.playerState == 'play' ? 'pause' : 'play'}
-            &nbsp;
+            {this.props.playerState === 'play' ? 'pause' : 'play'}
 					</button>
           <button onClick={this.props.stop}>
-            stop &nbsp;
+            stop
 					</button>
-          {/* <a href="" onClick={this.toggleRepeat}>
-            repeat &nbsp;
-					</a>
-          <a href="" onClick={this.toggleRandom}>
-            random &nbsp;
-					</a> */}
+          <button onClick={this.props.repeat}>
+            repeat
+					</button>
+          <button onClick={this.props.random}>
+            random
+					</button>
           <button onClick={this.props.mute}>
             muted
 					</button>

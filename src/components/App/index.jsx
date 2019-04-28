@@ -9,26 +9,42 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    playlist: playlist.playlist,
     currentPlaylist: playlist.playlist[0].list,
     currentPlaylistIndex: 0,
     currentSongIndex: 0,
+    playlist: playlist.playlist,
+    random: false,
+    repeat: false
     // currentRandomIndex: 0,
     // playedSongs: 0,
-    // loop: false,
-    // random: false,
     // randomOrder: []
   }
+
+  toggleRandom = () => {
+    // if (!this.state.random) {
+    // this.setRandomOrders();
+    //We are reordering (at the moment) all the songs, so we need to start again playing
+    // this.setState({ playedSongs: 0 });
+    // } else {
+    //   //Random removed. Assume n - i songs left.
+    //   this.setState({ playedSongs: this.state.currentSongIndex });
+    // }
+
+    this.setState({ random: !this.state.random });
+  }
+
+	toggleRepeat = () => {
+		this.setState({ repeat: !this.state.repeat });
+	}
 
   render = () => {
     const { currentSongIndex, currentPlaylist } = this.state;
 
     return (
-      <div>
-        <Player
-          song={currentPlaylist[currentSongIndex]}
-        />
-      </div>
+      <Player
+        song={currentPlaylist[currentSongIndex]}
+        toggleRandom={this.toggleRandom}
+      />
     );
   }
   // setRandomOrders = () => {
@@ -163,40 +179,6 @@ class App extends React.Component {
 
   //     this.state.playedSongs--;
   //   }
-  // }
-
-  // handleStop = event=> {
-  //   event.preventDefault();
-  //   this.setState({ playerState: 'stop' });
-  // }
-
-  // handleVolume = event=> {
-  //   event.preventDefault();
-  //   this.setState({ volume: event.target.value });
-  // }
-
-  // toggleRepeat = event=> {
-  //   event.preventDefault();
-  //   this.setState({ loop: !this.state.loop });
-  // }
-
-  // toggleMuted = event=> {
-  //   event.preventDefault();
-  //   this.setState({ muted: !this.state.muted });
-  // }
-
-  // toggleRandom = event => {
-  //   event.preventDefault();
-
-  //   if (!this.state.random) {
-  //     this.setRandomOrders();
-  //     //We are reordering (at the moment) all the songs, so we need to start again playing
-  //     this.setState({ playedSongs: 0 });
-  //   } else {
-  //     //Random removed. Assume n - i songs left.
-  //     this.setState({ playedSongs: this.state.currentSongIndex });
-  //   }
-  //   this.setState({ random: !this.state.random });
   // }
 }
 
