@@ -191,20 +191,20 @@ class App extends React.Component {
 	}
 	render() {
 
-		console.log("\n");
-		console.log("-------- Render --------");
-		console.log("Next state: ");
-		console.log(this.state.playerState);
-		console.log("Current playlist: ");
-		console.log(this.state.currentPlaylistIndex);
-		console.log("Current song: ");
-		console.log(this.state.currentSongIndex);
-		console.log("playedSongs: ");
-		console.log(this.state.playedSongs);
-		console.log("Random: ");
-		console.log(this.state.random);
-		console.log("Loop: ");
-		console.log(this.state.loop);
+		// console.log("\n");
+		// console.log("-------- Render --------");
+		// console.log("Next state: ");
+		// console.log(this.state.playerState);
+		// console.log("Current playlist: ");
+		// console.log(this.state.currentPlaylistIndex);
+		// console.log("Current song: ");
+		// console.log(this.state.currentSongIndex);
+		// console.log("playedSongs: ");
+		// console.log(this.state.playedSongs);
+		// console.log("Random: ");
+		// console.log(this.state.random);
+		// console.log("Loop: ");
+		// console.log(this.state.loop);
 
 		return (
 			<div>

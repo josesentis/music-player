@@ -1,5 +1,5 @@
 {
-	"playlist" : [{
+  "playlist": [{
 		"name" : "90s",
 		"list": [{
 				"imgsrc" : "assets/images/jamiexx.jpg",
@@ -63,5 +63,5 @@
 			   "singer" : "Jamie XX",
 			   "title" : "Gosh5"
 			}]
-		}]
-}
+    }]
+  }
