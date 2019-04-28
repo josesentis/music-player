@@ -12,15 +12,15 @@ class Player extends React.Component {
   handlePlay = () => {
     const { playerState } = this.state;
 
-		// if (playerState == 'stop') {
+    // if (playerState == 'stop') {
 
-			// if (this.state.random) {
-			// 	this.setRandomOrders();
-			// 	this.setState({ currentSongIndex: this.state.randomOrder[0] });
-			// 	this.setState({ currentRandomIndex: 0 });
-			// } else {
-			// 	this.setState({ currentSongIndex: 0 });
-			// }
+    // if (this.state.random) {
+    // 	this.setRandomOrders();
+    // 	this.setState({ currentSongIndex: this.state.randomOrder[0] });
+    // 	this.setState({ currentRandomIndex: 0 });
+    // } else {
+    // 	this.setState({ currentSongIndex: 0 });
+    // }
 
     //   this.setState({ playedSongs: 0 });
     //   this._player.play();
@@ -28,27 +28,27 @@ class Player extends React.Component {
     if (playerState === 'play') {
       this.setState({ playerState: 'pause' });
       this._player.pause();
-		} else {
+    } else {
       this.setState({ playerState: 'play' });
       this._player.play();
-		}
+    }
   }
 
-	handleStop = () => {
+  handleStop = () => {
     this.setState({ playerState: 'stop' });
     this._player.pause();
     this._player.currentTime = 0;
   }
 
-	toggleMute = () => {
-		this.setState({ muted: !this.state.muted });
+  toggleMute = () => {
+    this.setState({ muted: !this.state.muted });
   }
 
   render() {
-    const { song, toggleRandom, toggleRepeat } = this.props;
+    const { song, ...props } = this.props;
     const { muted, playerState } = this.state;
 
-    console.log(this.state);
+    console.log("Player: render", song);
     // if (volume) {
     //   this._player.volume = volume;
     // }
@@ -78,8 +78,7 @@ class Player extends React.Component {
           playerState={playerState}
           stop={this.handleStop}
           mute={this.toggleMute}
-          random={toggleRandom}
-          repeat={toggleRepeat}
+          {...props}
         />
       </div>
     );
