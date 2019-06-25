@@ -6,6 +6,7 @@ class Player extends React.Component {
   state = {
     muted: false,
     playerState: "stop",
+    random: false,
     volume: 60,
   }
 
@@ -47,8 +48,6 @@ class Player extends React.Component {
   render() {
     const { song, ...props } = this.props;
     const { muted, playerState } = this.state;
-
-    console.log("Player: render", song);
     // if (volume) {
     //   this._player.volume = volume;
     // }
