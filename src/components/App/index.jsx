@@ -27,18 +27,18 @@ class App extends React.Component {
     // randomOrder: []
   }
 
-  toggleRandom = () => {
+  // toggleRandom = () => {
     // if (!this.state.random) {
-    // this.setRandomOrders();
-    //We are reordering (at the moment) all the songs, so we need to start again playing
-    // this.setState({ playedSongs: 0 });
-    // } else {
-    //   //Random removed. Assume n - i songs left.
-    //   this.setState({ playedSongs: this.state.currentSongIndex });
-    // }
+      // this.setRandomOrders();
+      //We are reordering (at the moment) all the songs, so we need to start again playing
+      // this.setState({ playedSongs: 0 });
+      // } else {
+        //   //Random removed. Assume n - i songs left.
+        //   this.setState({ playedSongs: this.state.currentSongIndex });
+        // }
 
-    this.setState({ random: !this.state.random });
-  }
+    // this.setState({ random: !this.state.random });
+  // }
 
   toggleRepeat = () => {
     this.setState({ repeat: !this.state.repeat });
@@ -104,14 +104,13 @@ class App extends React.Component {
   render = () => {
     const { currentSongIndex, currentPlaylist } = this.state;
 
-    console.log("Render", currentPlaylist[currentSongIndex]);
-
     return (
       <Player
-        song={currentPlaylist[currentSongIndex]}
-        toggleRandom={this.toggleRandom}
         handleNextSong={this.handleNextSong}
         handlePrevSong={this.handlePrevSong}
+        song={currentPlaylist[currentSongIndex]}
+        toggleRandom={this.toggleRandom}
+        toggleRepeat={this.toggleRepeat}
       />
     );
   }
