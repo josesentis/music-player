@@ -8,7 +8,7 @@ class Player extends React.Component {
     // if (volume) {
     //   this._player.volume = volume;
     // }
-    console.log(this.props);
+    // console.log(this.props);
 
     return (
       <div>
@@ -37,7 +37,6 @@ class Player extends React.Component {
             this._player.currentTime = 0;
           }}
           play={() => {
-            console.log('PlayerState', playerState);
             if (playerState === 'play') {
               this._player.pause();
             } else {
