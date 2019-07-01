@@ -3,12 +3,18 @@ import React from "react";
 import Controls from './Controls';
 
 class Player extends React.Component {
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.song !== this.props.song) {
+      this._player.pause();
+      this._player.load();
+
+      if (this.props.playerState === 'play') { this._player.play(); }
+    }
+  }
+
   render() {
     const { handlePlay, handleStop, muted, playerState, song } = this.props;
-    // if (volume) {
-    //   this._player.volume = volume;
-    // }
-    // console.log(this.props);
 
     return (
       <div>

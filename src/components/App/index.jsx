@@ -1,11 +1,9 @@
 import React from 'react';
 
-// import Controls from '../Controls';
 import Player from '../Player';
-// import Playlist from '../Playlist';
 import playlist from '../../data/playlist.json';
 
-import { shuffle } from '../../utils';
+// import { shuffle } from '../../utils';
 
 import './App.css';
 
@@ -20,11 +18,11 @@ import './App.css';
 class App extends React.Component {
   state = {
     currentPlaylist: playlist.playlist[0].list,
-    currentPlaylistIndex: 0,
-    currentSongIndex: 0,
+    // currentPlaylistIndex: 0,
+    currentSongIndex: 1,
     muted: false,
     playerState: "stop",
-    playlist: playlist.playlist,
+    // playlist: playlist.playlist,
     // randomOrders: [],
     // random: false,
     repeat: false,
@@ -92,21 +90,17 @@ class App extends React.Component {
   handleNextSong = () => {
     console.log('Handle NextSong');
 
-    if (this.state.playerState !== "stop") {
-      let nextSong = this.state.currentSongIndex + 1;
+    let nextSong = this.state.currentSongIndex + 1;
 
-      if (this.state.currentSongIndex + 1 < this.state.currentPlaylist.length) {
-        nextSong = this.state.currentSongIndex + 1;
-      } else {
-        nextSong = 0;
+    if (nextSong < this.state.currentPlaylist.length) {
+      if (this.state.playerState === 'stop') { this.setState({ playerState: 'play' }); }
+    } else {
+      nextSong = 0;
 
-        if (!this.state.repeat) {
-          this.setState({ playerState: "stop" });
-        }
-      }
-
-      this.setState({ currentSongIndex: nextSong });
+      if (this.state.playerState !== 'stop') { this.setState({ playerState: 'stop' }); }
     }
+
+    this.setState({ currentSongIndex: nextSong });
   }
 
   handlePrevSong = () => {
