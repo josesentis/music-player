@@ -25,69 +25,35 @@ class App extends React.Component {
     muted: false,
     playerState: "stop",
     playlist: playlist.playlist,
-    random: false,
+    // randomOrders: [],
+    // random: false,
     repeat: false,
     volume: 60,
     // currentRandomIndex: 0,
     // playedSongs: 0,
-    // randomOrder: []
   }
 
-  // toggleRandom = () => {
-  // if (!this.state.random) {
-  // this.setRandomOrders();
-  //We are reordering (at the moment) all the songs, so we need to start again playing
-  // this.setState({ playedSongs: 0 });
-  // } else {
-  //   //Random removed. Assume n - i songs left.
-  //   this.setState({ playedSongs: this.state.currentSongIndex });
-  // }
+  // setRandomOrders = () => {
+  //   let randomOrders;
 
-  // this.setState({ random: !this.state.random });
-  // }
+  //   if (this.state.playerState !== "stop") {
+  //     const tempCurrentPlaylist = this.state.currentPlaylist.slice();
 
-  setRandomOrders = () => {
-    // if random is set, second round -> start from 0
-    // if random not set, song playing. Current song -> order 0.
-
-    console.log("Set random orders");
-
-    if (this.state.random || this.state.playerState === "stop") {
-      this.setState({ randomOrder: shuffle(this.state.currentPlaylist) });
+  //     randomOrders = tempCurrentPlaylist.splice(this.state.currentSongIndex, 1);
+  //     randomOrders = [...randomOrders, ...shuffle(tempCurrentPlaylist)];
   //   } else {
+  //     randomOrders = shuffle(this.state.currentPlaylist);
+  //   }
 
-  //     for (var i = 0; i < this.state.currentPlaylist.length; i++) {
-  //       tempIndexes[i] = i;
-  //     }
-
-  //     tempOrder[0] = this.state.currentSongIndex;
-  //     tempIndexes.splice(this.state.currentSongIndex, 1);
-
-  //     for (var i = 0; i < this.state.currentPlaylist.length - 1; i++) {
-  //       var rand = Math.floor(Math.random() * (tempIndexes.length - 1));
-  //       tempOrder[i + 1] = tempIndexes[rand];
-  //       tempIndexes.splice(rand, 1);
-  //     }
-
-  //     this.state.randomOrder = tempOrder;
-    }
-
-  //   this.setState({ currentRandomIndex: 0 });
-  //   this.setState({ currentSongIndex: this.state.currentSongIndex });
-  }
+  //   this.setState({ randomOrders });
+  // }
 
   handlePlay = () => {
     console.log('Handle Play');
 
     const { playerState } = this.state;
 
-    if (playerState === 'stop') {
-      if (this.state.random) {
-        this.setRandomOrders();
-        // this.setState({ currentSongIndex: this.state.randomOrder[0] });
-        // this.setState({ currentRandomIndex: 0 });
-      }
-    } else if (playerState === 'play') {
+    if (playerState === 'play') {
       this.setState({ playerState: 'pause' });
     } else {
       this.setState({ playerState: 'play' });
@@ -109,11 +75,13 @@ class App extends React.Component {
     this.setState({ muted: !this.state.muted });
   }
 
-  toggleRandom = () => {
-    console.log('Handle Random');
+  // toggleRandom = () => {
+  //   console.log('Handle Random');
 
-    this.setState({ random: !this.state.random });
-  }
+  //   if (!this.state.random) { this.setRandomOrders(); }
+
+  //   this.setState({ random: !this.state.random });
+  // }
 
   toggleRepeat = () => {
     console.log('Handle Repeat');
@@ -138,7 +106,6 @@ class App extends React.Component {
       }
 
       this.setState({ currentSongIndex: nextSong });
-
     }
   }
 
@@ -162,7 +129,7 @@ class App extends React.Component {
         muted={muted}
         song={currentPlaylist[currentSongIndex]}
         toggleMute={this.toggleMute}
-        toggleRandom={this.toggleRandom}
+        // toggleRandom={this.toggleRandom}
         toggleRepeat={this.toggleRepeat}
         handlePlay={this.handlePlay}
         handleStop={this.handleStop}
