@@ -7,7 +7,7 @@ const Controls = ({
   play,
   stop,
   toggleRepeat,
-  toggleRandom,
+  // toggleRandom,
   toggleMute
 }) => (
     <div id="controls">
@@ -17,7 +17,7 @@ const Controls = ({
         </button>
         <button onClick={stop}>stop</button>
         <button onClick={toggleRepeat}>repeat</button>
-        <button onClick={toggleRandom}>random</button>
+        {/* <button onClick={toggleRandom}>random</button> */}
         <button onClick={toggleMute}>muted</button>
         {/* <input type="range" id="volume" name="volume" step="1"
             onChange={this.handleVolume} value={this.state.muted ? 0 : this.state.volume} max="100" /> */}
