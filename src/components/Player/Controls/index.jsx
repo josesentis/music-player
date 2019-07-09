@@ -3,12 +3,15 @@ import React from 'react';
 const Controls = ({
   handleNextSong,
   handlePrevSong,
+  handleVolume,
+  muted,
   playerState,
   play,
   stop,
   toggleRepeat,
   // toggleRandom,
-  toggleMute
+  toggleMute,
+  volume
 }) => (
     <div id="controls">
       <div>
@@ -18,9 +21,9 @@ const Controls = ({
         <button onClick={stop}>stop</button>
         <button onClick={toggleRepeat}>repeat</button>
         {/* <button onClick={toggleRandom}>random</button> */}
-        <button onClick={toggleMute}>muted</button>
-        {/* <input type="range" id="volume" name="volume" step="1"
-            onChange={this.handleVolume} value={this.state.muted ? 0 : this.state.volume} max="100" /> */}
+        <button onClick={toggleMute}>{muted ? 'muted' : 'mute'}</button>
+        <input type="range" id="volume" name="volume" step="1"
+            onChange={handleVolume} value={muted ? 0 : volume} max="100" />
       </div>
       <div>
         <button onClick={handlePrevSong}>prev</button>

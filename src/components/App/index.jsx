@@ -111,8 +111,14 @@ class App extends React.Component {
     }
   }
 
+  handleVolume = event => {
+    console.log('Handle Volume');
+
+    this.setState({ volume: event.currentTarget.value });
+  }
+
   render = () => {
-    const { currentSongIndex, currentPlaylist, muted, playerState } = this.state;
+    const { currentSongIndex, currentPlaylist, muted, playerState, volume } = this.state;
 
     console.log(this.state);
 
@@ -127,7 +133,9 @@ class App extends React.Component {
         toggleRepeat={this.toggleRepeat}
         handlePlay={this.handlePlay}
         handleStop={this.handleStop}
+        handleVolume={this.handleVolume}
         playerState={playerState}
+        volume={volume}
       />
     );
   }

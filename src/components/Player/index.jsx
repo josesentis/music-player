@@ -3,7 +3,6 @@ import React from "react";
 import Controls from './Controls';
 
 class Player extends React.Component {
-
   componentDidUpdate = prevProps => {
     if (prevProps.song !== this.props.song) {
       this._player.pause();
@@ -11,6 +10,8 @@ class Player extends React.Component {
 
       if (this.props.playerState === 'play') { this._player.play(); }
     }
+
+    this._player.volume = this.props.volume / 100;
   }
 
   render() {
@@ -38,9 +39,10 @@ class Player extends React.Component {
         </audio>
         <Controls
           stop={() => {
-            handleStop();
             this._player.pause();
             this._player.currentTime = 0;
+
+            handleStop();
           }}
           play={() => {
             if (playerState === 'play') {
@@ -48,8 +50,10 @@ class Player extends React.Component {
             } else {
               this._player.play();
             }
+
             handlePlay();
           }}
+          muted={muted}
           {...this.props}
         />
       </div>
