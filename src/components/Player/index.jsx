@@ -15,7 +15,9 @@ class Player extends React.Component {
   }
 
   render() {
-    const { handlePlay, handleStop, muted, playerState, song } = this.props;
+    const { handlePlay, handleStop, handleNextSong, handlePrevSong, muted, playerState, song, repeat } = this.props;
+
+    console.log(repeat);
 
     return (
       <div>
@@ -38,6 +40,7 @@ class Player extends React.Component {
           <source src={song.filessrc} type="audio/mp3" />
         </audio>
         <Controls
+          {...this.props}
           stop={() => {
             this._player.pause();
             this._player.currentTime = 0;
@@ -53,8 +56,22 @@ class Player extends React.Component {
 
             handlePlay();
           }}
+          handleNextSong={() => {
+            if (repeat) {
+              this._player.currentTime = 0;
+            } else {
+              handleNextSong();
+            }
+          }}
+          handlePrevSong={() => {
+            if (repeat) {
+              this._player.currentTime = 0;
+              return;
+            } else {
+              handlePrevSong();
+            }
+          }}
           muted={muted}
-          {...this.props}
         />
       </div>
     );
@@ -62,3 +79,6 @@ class Player extends React.Component {
 }
 
 export default Player;
+
+
+// if (this.state.repeat) { return; }

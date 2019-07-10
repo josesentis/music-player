@@ -118,7 +118,7 @@ class App extends React.Component {
   }
 
   render = () => {
-    const { currentSongIndex, currentPlaylist, muted, playerState, volume } = this.state;
+    const { currentSongIndex, currentPlaylist, muted, playerState, repeat, volume } = this.state;
 
     console.log(this.state);
 
@@ -136,6 +136,7 @@ class App extends React.Component {
         handleVolume={this.handleVolume}
         playerState={playerState}
         volume={volume}
+        repeat={repeat}
       />
     );
   }

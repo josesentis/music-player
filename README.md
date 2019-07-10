@@ -9,7 +9,7 @@ Music player build using:
 - :white_check_mark: Basic controls (Play/Pause, Stop, Next/Prev songs)
 - :white_check_mark: Volume change
 - :white_check_mark: Mute
-- Repeat mode
+- :white_check_mark: Repeat mode
 - Progress bar / Remaining time
 
 ## Advanced Features
