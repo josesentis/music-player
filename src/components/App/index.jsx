@@ -26,6 +26,8 @@ class App extends React.Component {
     // randomOrders: [],
     // random: false,
     repeat: false,
+    // currentTime: 0,
+    // songDuration: 0,
     volume: 60,
     // currentRandomIndex: 0,
     // playedSongs: 0,
@@ -108,6 +110,8 @@ class App extends React.Component {
 
     if (this.state.currentSongIndex > 0) {
       this.setState({ currentSongIndex: this.state.currentSongIndex - 1 });
+
+      if (this.state.playerState === 'stop') { this.setState({ playerState: 'play' }); }
     }
   }
 
@@ -118,7 +122,16 @@ class App extends React.Component {
   }
 
   render = () => {
-    const { currentSongIndex, currentPlaylist, muted, playerState, repeat, volume } = this.state;
+    const {
+      // currentTime,
+      // songDuration,
+      currentSongIndex,
+      currentPlaylist,
+      muted,
+      playerState,
+      repeat,
+      volume
+    } = this.state;
 
     console.log(this.state);
 
@@ -137,6 +150,8 @@ class App extends React.Component {
         playerState={playerState}
         volume={volume}
         repeat={repeat}
+        // currentTime={currentTime}
+        // songDuration={songDuration}
       />
     );
   }

@@ -10,7 +10,9 @@ Music player build using:
 - :white_check_mark: Volume change
 - :white_check_mark: Mute
 - :white_check_mark: Repeat mode
-- Progress bar / Remaining time
+- :white_check_mark: Progress bar / Remaining time
+- Update progress with progress bar
+- Auto change song
 
 ## Advanced Features
 - Random order
