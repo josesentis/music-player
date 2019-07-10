@@ -1,8 +1,14 @@
 import React from "react";
 
 import Controls from './Controls';
+import SongInfo from './SongInfo';
 
 class Player extends React.Component {
+  state = {
+    currentTime: 0,
+    songDuration: 0
+  }
+
   componentDidUpdate = prevProps => {
     if (prevProps.song !== this.props.song) {
       this._player.pause();
@@ -14,22 +20,54 @@ class Player extends React.Component {
     this._player.volume = this.props.volume / 100;
   }
 
-  render() {
-    const { handlePlay, handleStop, handleNextSong, handlePrevSong, muted, playerState, song, repeat } = this.props;
+  updateTime = timestamp => {
+    const currentTime = Math.floor(timestamp);
 
-    console.log(repeat);
+		this.setState({ currentTime });
+  }
+
+  clearPlayer = () => {
+    clearInterval(this._interval);
+    this._player.currentTime = 0;
+    this.setState({ currentTime: 0, songDuration: 0 });
+  }
+
+  startProgressBar = () => {
+    const songDuration = Math.floor(this._player.duration);
+
+    this.setState({ songDuration });
+
+    this._interval = setInterval(() => {
+      let currentTime = this._player.currentTime;
+
+      console.log(currentTime);
+
+      this.updateTime(currentTime);
+    }, 100);
+  }
+
+  render() {
+    const {
+      handlePlay,
+      handleStop,
+      handleNextSong,
+      handlePrevSong,
+      muted,
+      playerState,
+      song,
+      repeat
+    } = this.props;
+
+    const {
+      currentTime,
+      songDuration,
+    } = this.state;
+
+    console.log('Interval:', this._interval);
 
     return (
       <div>
-        <header>
-          <img
-            src={song.imgsrc}
-            alt={song.title}
-          />
-        </header>
-        <div>
-          {song.singer} - {song.title}
-        </div>
+        <SongInfo song={song} />
         <audio
           id="player"
           muted={muted}
@@ -41,17 +79,21 @@ class Player extends React.Component {
         </audio>
         <Controls
           {...this.props}
+          currentTime={currentTime}
+          songDuration={songDuration}
           stop={() => {
             this._player.pause();
-            this._player.currentTime = 0;
 
             handleStop();
+            this.clearPlayer();
           }}
           play={() => {
             if (playerState === 'play') {
               this._player.pause();
+              clearInterval(this._interval);
             } else {
               this._player.play();
+              this.startProgressBar();
             }
 
             handlePlay();
@@ -62,6 +104,9 @@ class Player extends React.Component {
             } else {
               handleNextSong();
             }
+
+            this.clearPlayer();
+            this.startProgressBar();
           }}
           handlePrevSong={() => {
             if (repeat) {
@@ -70,6 +115,9 @@ class Player extends React.Component {
             } else {
               handlePrevSong();
             }
+
+            this.clearPlayer();
+            this.startProgressBar();
           }}
           muted={muted}
         />
@@ -79,6 +127,3 @@ class Player extends React.Component {
 }
 
 export default Player;
-
-
-// if (this.state.repeat) { return; }
