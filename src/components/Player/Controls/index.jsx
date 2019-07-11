@@ -1,6 +1,8 @@
 import React from 'react';
 
+import Button from './Button';
 import ProgressBar from './ProgressBar';
+import Volume from './Volume';
 
 const Controls = ({
   currentTime,
@@ -21,22 +23,17 @@ const Controls = ({
   console.log('Song duration:', songDuration);
 
   return (
-    <div id="controls">
-      <div>
-        <button onClick={play}>
-          {playerState === 'play' ? 'pause' : 'play'}
-        </button>
-        <button onClick={stop}>stop</button>
-        <button onClick={toggleRepeat}>repeat</button>
-        {/* <button onClick={toggleRandom}>random</button> */}
-        <button onClick={toggleMute}>{muted ? 'muted' : 'mute'}</button>
-        <input type="range" id="volume" name="volume" step="1"
-            onChange={handleVolume} value={muted ? 0 : volume} max="100" />
-      </div>
+    <div>
       <ProgressBar currentTime={currentTime} songDuration={songDuration} />
       <div>
-        <button onClick={handlePrevSong}>prev</button>
-        <button onClick={handleNextSong}>next</button>
+        <Button onClick={play} icon={playerState === 'play' ? 'pause' : 'play'}} />
+        <Button onClick={stop} icon={'stop'} />
+        <Button onClick={toggleRepeat} icon={'repeat'} />
+        {/* <Button onClick={toggleRandom} icon={'random'} /> */}
+        <Button onClick={toggleMute} icon={muted ? 'muted' : 'mute'} />
+        <Volume onChange={handleVolume} muted={muted} value={volume} />
+        <Button onClick={handlePrevSong} icon={prev} />
+        <Button onClick={handleNextSong} icon={next} />
       </div>
     </div>
   )
