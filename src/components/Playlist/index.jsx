@@ -28,7 +28,7 @@ class Playlist extends React.Component {
           : ""
       }
       data-audiosrc={item.audiosrc}
-      data-imgsrc={item.imgsrc}
+      data-img={item.img}
       data-order={index}
       onClick={this.handleChangeSong}
     >

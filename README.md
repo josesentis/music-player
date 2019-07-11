@@ -12,9 +12,11 @@ Music player build using:
 - :white_check_mark: Repeat mode
 - :white_check_mark: Progress bar / Remaining time
 - :white_check_mark: Update progress with progress bar
-- Auto change song
+- :white_check_mark: Auto change song
+- Playlist with active song
 
 ## Advanced Features
+- Chose song from the playlist
 - Random order
 - Multiple playlists
 - Keyboard interaction
