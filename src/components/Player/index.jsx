@@ -37,6 +37,7 @@ class Player extends React.Component {
   clearPlayer = () => {
     clearInterval(this._interval);
     this._player.currentTime = 0;
+    this._player.removeEventListener('ended', this.props.handleNextSong);
     this.setState({ currentTime: 0, songDuration: 0 });
   }
 
@@ -49,6 +50,8 @@ class Player extends React.Component {
 
       this.updateTime(currentTime);
     }, 100);
+
+    this._player.addEventListener('ended', this.props.handleNextSong);
   }
 
   render() {
@@ -77,7 +80,7 @@ class Player extends React.Component {
             this._player = el;
           }}
         >
-          <source src={song.filessrc} type="audio/mp3" />
+          <source src={song.src} type="audio/mp3" />
         </audio>
         <ProgressBar
           onChange={this.handleProgress}

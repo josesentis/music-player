@@ -7,14 +7,6 @@ import playlist from '../../data/playlist.json';
 
 import './App.css';
 
-/**
- *
- *  TODO:
- *  - Next / Prev songs.
- *  - Volume handling.
- *  - Random orders.
- *
- **/
 class App extends React.Component {
   state = {
     currentPlaylist: playlist.playlist[0].list,
@@ -95,14 +87,15 @@ class App extends React.Component {
     let nextSong = this.state.currentSongIndex + 1;
 
     if (nextSong < this.state.currentPlaylist.length) {
-      if (this.state.playerState === 'stop') { this.setState({ playerState: 'play' }); }
-    } else {
-      nextSong = 0;
+      if (this.state.playerState === 'stop') {
+        this.setState({ playerState: 'play' });
+      }
 
-      if (this.state.playerState !== 'stop') { this.setState({ playerState: 'stop' }); }
+      this.setState({ currentSongIndex: nextSong });
+    } else if (this.state.playerState !== 'stop') {
+        this.handleStop();
     }
 
-    this.setState({ currentSongIndex: nextSong });
   }
 
   handlePrevSong = () => {

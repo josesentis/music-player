@@ -2,76 +2,76 @@
   "playlist": [{
 		"name" : "90s",
 		"list": [{
-				"imgsrc" : "assets/images/jamiexx.jpg",
-				"filessrc" : "assets/files/jamiexx-gosh.mp3",
+				"img" : "assets/images/jamiexx.jpg",
+				"src" : "assets/files/jamiexx-gosh.mp3",
 				"singer" : "Jamie XX",
 				"title" : "Gosh"
 			 },
 			 {
-				"imgsrc" : "assets/images/jamiexx2.jpg",
-				"filessrc" : "assets/files/jamiexx-gosh2.mp3",
+				"img" : "assets/images/jamiexx2.jpg",
+				"src" : "assets/files/jamiexx-gosh2.mp3",
 				"singer" : "Jamie XX 2",
 				"title" : "Gosh 2"
 			 },
 			 {
-				"imgsrc" : "assets/images/jamiexx3.jpg",
-				"filessrc" : "assets/files/jamiexx-gosh3.mp3",
+				"img" : "assets/images/jamiexx3.jpg",
+				"src" : "assets/files/jamiexx-gosh3.mp3",
 				"singer" : "Jamie XX 3",
 				"title" : "Gosh 3"
 			},
 			{
-			   "imgsrc" : "assets/images/jamiexx4.jpg",
-			   "filessrc" : "assets/files/jamiexx-gosh4.mp3",
+			   "img" : "assets/images/jamiexx4.jpg",
+			   "src" : "assets/files/jamiexx-gosh4.mp3",
 			   "singer" : "Jamie XX 4",
 			   "title" : "Gosh 4"
 			},
 			{
-			   "imgsrc" : "assets/images/jamiexx5.jpg",
-			   "filessrc" : "assets/files/jamiexx-gosh5.mp3",
+			   "img" : "assets/images/jamiexx5.jpg",
+			   "src" : "assets/files/jamiexx-gosh5.mp3",
 			   "singer" : "Jamie XX 5",
 			   "title" : "Gosh 5"
 			},
 			{
-			   "imgsrc" : "assets/images/jamiexx6.jpg",
-			   "filessrc" : "assets/files/jamiexx-gosh6.mp3",
+			   "img" : "assets/images/jamiexx6.jpg",
+			   "src" : "assets/files/jamiexx-gosh6.mp3",
 			   "singer" : "Jamie XX 6",
 			   "title" : "Gosh 6"
 			}]
 		},{
 		"name": "Vive el verano",
 		"list": [{
-        "imgsrc" : "assets/images/jamiexx.jpg",
-        "filessrc" : "assets/files/jamiexx-gosh.mp3",
+        "img" : "assets/images/jamiexx.jpg",
+        "src" : "assets/files/jamiexx-gosh.mp3",
         "singer" : "Jamie XX",
         "title" : "Gosh"
       },
       {
-        "imgsrc" : "assets/images/jamiexx2.jpg",
-        "filessrc" : "assets/files/jamiexx-gosh2.mp3",
+        "img" : "assets/images/jamiexx2.jpg",
+        "src" : "assets/files/jamiexx-gosh2.mp3",
         "singer" : "Jamie XX 2",
         "title" : "Gosh 2"
       },
       {
-        "imgsrc" : "assets/images/jamiexx3.jpg",
-        "filessrc" : "assets/files/jamiexx-gosh3.mp3",
+        "img" : "assets/images/jamiexx3.jpg",
+        "src" : "assets/files/jamiexx-gosh3.mp3",
         "singer" : "Jamie XX 3",
         "title" : "Gosh 3"
       },
       {
-        "imgsrc" : "assets/images/jamiexx4.jpg",
-        "filessrc" : "assets/files/jamiexx-gosh4.mp3",
+        "img" : "assets/images/jamiexx4.jpg",
+        "src" : "assets/files/jamiexx-gosh4.mp3",
         "singer" : "Jamie XX 4",
         "title" : "Gosh 4"
       },
       {
-        "imgsrc" : "assets/images/jamiexx5.jpg",
-        "filessrc" : "assets/files/jamiexx-gosh5.mp3",
+        "img" : "assets/images/jamiexx5.jpg",
+        "src" : "assets/files/jamiexx-gosh5.mp3",
         "singer" : "Jamie XX 5",
         "title" : "Gosh 5"
       },
       {
-        "imgsrc" : "assets/images/jamiexx6.jpg",
-        "filessrc" : "assets/files/jamiexx-gosh6.mp3",
+        "img" : "assets/images/jamiexx6.jpg",
+        "src" : "assets/files/jamiexx-gosh6.mp3",
         "singer" : "Jamie XX 6",
         "title" : "Gosh 6"
       }]

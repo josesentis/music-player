@@ -4,7 +4,7 @@ const SongInfo = ({ song }) => (
   <>
     <header>
       <img
-        src={song.imgsrc}
+        src={song.img}
         alt={song.title}
       />
     </header>
