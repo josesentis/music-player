@@ -1,6 +1,7 @@
 import React from "react";
 
 import Controls from './Controls';
+import ProgressBar from './ProgressBar';
 import SongInfo from './SongInfo';
 
 class Player extends React.Component {
@@ -23,7 +24,14 @@ class Player extends React.Component {
   updateTime = timestamp => {
     const currentTime = Math.floor(timestamp);
 
-		this.setState({ currentTime });
+    this.setState({ currentTime });
+  }
+
+  handleProgress = event => {
+    const currentTime = Math.floor(this.state.songDuration * event.currentTarget.value / 100);
+
+    this.updateTime(currentTime);
+    this._player.currentTime = currentTime;
   }
 
   clearPlayer = () => {
@@ -36,11 +44,8 @@ class Player extends React.Component {
     const songDuration = Math.floor(this._player.duration);
 
     this.setState({ songDuration });
-
     this._interval = setInterval(() => {
       let currentTime = this._player.currentTime;
-
-      console.log(currentTime);
 
       this.updateTime(currentTime);
     }, 100);
@@ -63,13 +68,10 @@ class Player extends React.Component {
       songDuration,
     } = this.state;
 
-    console.log('Interval:', this._interval);
-
     return (
-      <div>
+      <div className="player">
         <SongInfo song={song} />
         <audio
-          id="player"
           muted={muted}
           ref={el => {
             this._player = el;
@@ -77,10 +79,16 @@ class Player extends React.Component {
         >
           <source src={song.filessrc} type="audio/mp3" />
         </audio>
+        <ProgressBar
+          onChange={this.handleProgress}
+          currentTime={currentTime}
+          songDuration={songDuration}
+        />
         <Controls
           {...this.props}
           currentTime={currentTime}
           songDuration={songDuration}
+          handleProgress={this.handleProgress}
           stop={() => {
             this._player.pause();
 
