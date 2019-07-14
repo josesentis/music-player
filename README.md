@@ -13,11 +13,11 @@ Music player build using:
 - :white_check_mark: Progress bar / Remaining time
 - :white_check_mark: Update progress with progress bar
 - :white_check_mark: Auto change song
-- Playlist with active song
 
 ## Advanced Features
-- Chose song from the playlist
 - Random order
+- Playlist with active song
+- Chose song from the playlist
 - Multiple playlists
 - Keyboard interaction
 - Connect with music provider (To be defined)
