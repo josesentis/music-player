@@ -1,10 +1,6 @@
 import React from 'react';
 
-class ProgressBar extends React.Component {
-  // state = {
-  //   progress: 0
-  // }
-
+class ProgressBar extends React.PureComponent {
   convertTime = timestamp => {
     let minutes = Math.floor(timestamp / 60);
     let seconds = timestamp - (minutes * 60);
@@ -15,9 +11,6 @@ class ProgressBar extends React.Component {
 
   render() {
     const { onChange, currentTime, songDuration } = this.props;
-    // const { progress } = this.state;
-
-    // const songProgress = songDuration ? currentTime * 100 / songDuration : 0;
 
     return (
       <div className="progress-bar">

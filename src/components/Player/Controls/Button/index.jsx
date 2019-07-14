@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Button = ({ onClick, icon }) => <button onClick={onClick}>{ icon }</button>;
+class Button extends React.PureComponent {
+  render () {
+    const { onClick, icon } = this.props;
+
+    return <button onClick={onClick}>{ icon }</button>
+  }
+}
 
 export default Button;

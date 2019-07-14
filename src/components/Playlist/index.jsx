@@ -1,83 +1,21 @@
 import React from "react";
 
-class Playlist extends React.Component {
-  constructor(props) {
-    super(props);
+class Playlist extends React.PureComponent {
+  render () {
+    const { currentIndex, handleSongChange, playlist } = this.props;
 
-    this.state = {
-      currentPlaylistIndex: props.currentPlaylistIndex,
-      currentSongIndex: props.currentSongIndex,
-      playing: props.playing
-    }
-
-    this.handleChangeSong = props.handleChangeSong;
-  }
-
-  componentWillReceiveProps = (newProps) => {
-    this.setState({ playing: newProps.playing });
-    this.setState({ currentPlaylistIndex: newProps.currentPlaylistIndex });
-    this.setState({ currentSongIndex: newProps.currentSongIndex });
-  }
-
-  renderPlaylist = (list, currentSongIndex, playing) => list.map((item, index) => (
-    <li
-      key={index}
-      className={
-        parseInt(currentSongIndex) == index && playing != "stop"
-          ? "current"
-          : ""
-      }
-      data-audiosrc={item.audiosrc}
-      data-img={item.img}
-      data-order={index}
-      onClick={this.handleChangeSong}
-    >
-      {item.singer} - {item.title}
-    </li>
-  );
-
-  renderMultiplePlaylist(currentPlaylistIndex, currentSongIndex, playing) {
-    return this.props.playlist.map(
-      function (item, index) {
-        return (
-          <div
-            key={index}
-            className={
-              "playlist " +
-              (parseInt(currentPlaylistIndex) == index &&
-                playing != "stop"
-                ? "selected"
-                : "no-selected")
-            }
-          >
-            <p>{item.name}</p>
-            <ul>
-              {this.renderPlaylist(
-                item.list,
-                currentSongIndex,
-                playing
-              )}
-            </ul>
-          </div>
-        );
-      }.bind(this)
-    );
-  }
-
-  render() {
     return (
-      <div id="playlist" className="playlists">
-        Playlist
-                <div>
-          {this.renderMultiplePlaylist(
-            this.state.currentPlaylistIndex,
-            this.state.currentSongIndex,
-            this.state.playing
+      <div className="playlists">
+        <h2>Playlist</h2>
+        <ul>
+          {playlist.map((song, index) =>
+            <li key={index} className={currentIndex === index ? 'active' : ''}>
+              <button onClick={() => handleSongChange(index)}>{song.singer} - {song.title}</button>
+            </li>
           )}
-        </div>
+        </ul>
       </div>
-    );
+    )};
   }
-}
 
 export default Playlist;

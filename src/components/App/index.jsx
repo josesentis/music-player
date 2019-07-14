@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Player from '../Player';
+import Playlist from '../Playlist';
+
 import playlist from '../../data/playlist.json';
 
 // import { shuffle } from '../../utils';
@@ -93,7 +95,7 @@ class App extends React.Component {
 
       this.setState({ currentSongIndex: nextSong });
     } else if (this.state.playerState !== 'stop') {
-        this.handleStop();
+      this.handleStop();
     }
 
   }
@@ -114,10 +116,14 @@ class App extends React.Component {
     this.setState({ volume: event.currentTarget.value });
   }
 
+  handleSongChange = currentSongIndex => {
+    console.log('Handle Song Change');
+
+    this.setState({ currentSongIndex });
+  }
+
   render = () => {
     const {
-      // currentTime,
-      // songDuration,
       currentSongIndex,
       currentPlaylist,
       muted,
@@ -129,23 +135,30 @@ class App extends React.Component {
     console.log(this.state);
 
     return (
-      <Player
-        handleNextSong={this.handleNextSong}
-        handlePrevSong={this.handlePrevSong}
-        muted={muted}
-        song={currentPlaylist[currentSongIndex]}
-        toggleMute={this.toggleMute}
-        // toggleRandom={this.toggleRandom}
-        toggleRepeat={this.toggleRepeat}
-        handlePlay={this.handlePlay}
-        handleStop={this.handleStop}
-        handleVolume={this.handleVolume}
-        playerState={playerState}
-        volume={volume}
-        repeat={repeat}
+      <>
+        <Player
+          handleNextSong={this.handleNextSong}
+          handlePrevSong={this.handlePrevSong}
+          muted={muted}
+          song={currentPlaylist[currentSongIndex]}
+          toggleMute={this.toggleMute}
+          // toggleRandom={this.toggleRandom}
+          toggleRepeat={this.toggleRepeat}
+          handlePlay={this.handlePlay}
+          handleStop={this.handleStop}
+          handleVolume={this.handleVolume}
+          playerState={playerState}
+          volume={volume}
+          repeat={repeat}
         // currentTime={currentTime}
         // songDuration={songDuration}
-      />
+        />
+        <Playlist
+          playlist={currentPlaylist}
+          currentIndex={currentSongIndex}
+          handleSongChange={this.handleSongChange}
+        />
+      </>
     );
   }
 }
