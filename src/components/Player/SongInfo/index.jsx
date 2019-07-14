@@ -1,17 +1,21 @@
 import React from 'react';
 
-const SongInfo = ({ song }) => (
-  <>
-    <header>
-      <img
-        src={song.img}
-        alt={song.title}
-      />
-    </header>
-    <div>
-      {song.singer} - {song.title}
-    </div>
-  </>
-);
+class SongInfo extends React.PureComponent {
+  render() {
+    const { song } = this.props;
+
+    return (
+      <header>
+        <img
+          src={song.img}
+          alt={song.title}
+        />
+        <h1>
+          {song.singer} - {song.title}
+        </h1>
+      </header>
+    );
+  }
+};
 
 export default SongInfo;

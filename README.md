@@ -16,8 +16,8 @@ Music player build using:
 
 ## Advanced Features
 - Random order
-- Playlist with active song
-- Chose song from the playlist
+- :white_check_mark: Playlist with active song
+- :white_check_mark: Chose song from the playlist
 - Multiple playlists
 - Keyboard interaction
 - Connect with music provider (To be defined)
