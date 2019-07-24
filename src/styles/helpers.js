@@ -34,4 +34,4 @@ const rgbToHex = (r, g, b) => {
     .join('');
 };
 
-export { bgGradient, getRatio, hexToRgb, hover, rgbToHex };
+export { hexToRgb, hover, rgbToHex };

@@ -38,6 +38,17 @@ const GlobalStyle = createGlobalStyle`
     vertical-align: baseline;
   }
 
+  html,
+  body {
+    align-items: center;
+    background: ${colors.neutro.lighter};
+    color: ${colors.neutro.darkest};
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    width: 100vw;
+  }
+
   i {
     font-style: italic;
   }

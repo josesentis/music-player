@@ -4,6 +4,8 @@ import Controls from './Controls';
 import ProgressBar from './ProgressBar';
 import SongInfo from './SongInfo';
 
+import PlayerStyled from "./styles";
+
 class Player extends React.Component {
   state = {
     currentTime: 0,
@@ -72,7 +74,7 @@ class Player extends React.Component {
     } = this.state;
 
     return (
-      <div className="player">
+      <PlayerStyled>
         <SongInfo song={song} />
         <audio
           muted={muted}
@@ -132,7 +134,7 @@ class Player extends React.Component {
           }}
           muted={muted}
         />
-      </div>
+      </PlayerStyled>
     );
   }
 }

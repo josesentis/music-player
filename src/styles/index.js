@@ -5,7 +5,7 @@ import {
   hover,
   rgbToHex
 } from './helpers';
-import { space, pixelate, rems } from './mixins/rhythm';
+import { space, pixelate, rems } from './rhythm';
 
 export {
   colors,

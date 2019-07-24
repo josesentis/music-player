@@ -2,7 +2,6 @@ import React from 'react';
 
 import Player from '../Player';
 import playlist from '../../data/playlist.json';
-
 // import { shuffle } from '../../utils';
 
 import './App.css';

@@ -1,4 +1,4 @@
-import { typography } from '..';
+import { typography } from './';
 
 /**
  * Rems
