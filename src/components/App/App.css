@@ -1,6 +1,10 @@
-button {
+/* button {
   background-color: white;
   color: black;
+} */
+
+html *, body *{
+  box-sizing: border-box;
 }
 input[type=range] {
   -webkit-appearance: none;

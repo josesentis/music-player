@@ -160,5 +160,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export { baseParagraph };
 export default GlobalStyle;
