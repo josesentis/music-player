@@ -1,7 +1,7 @@
 import React from 'react';
 
+import Range from '../Range';
 import Button from './Button';
-import Volume from './Volume';
 
 const Controls = ({
   handleNextSong,
@@ -23,7 +23,7 @@ const Controls = ({
       <Button onClick={toggleRepeat} icon={'repeat'} />
       {/* <Button onClick={toggleRandom} icon={'random'} /> */}
       <Button onClick={toggleMute} icon={muted ? 'muted' : 'mute'} />
-      <Volume onChange={handleVolume} muted={muted} value={volume} />
+      <Range className="small" onChange={handleVolume} value={muted ? 0 : volume} />
       <Button onClick={handlePrevSong} icon={'prev'} />
       <Button onClick={handleNextSong} icon={'next'} />
     </div>

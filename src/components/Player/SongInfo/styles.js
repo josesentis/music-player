@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 import { colors, space } from '../../../styles';
 
+/**
+ * TODO: Space evenly the items here (For > iPhone 5)
+ * Controls always same size, this spaced evenly
+*/
+
 const SongInfoStyled = styled.div`
   align-items: center;
   display: flex;
