@@ -147,23 +147,26 @@ class App extends React.Component {
     console.log(this.state);
 
     return (
-      <Player
-        handleNextSong={this.handleNextSong}
-        handlePrevSong={this.handlePrevSong}
-        muted={muted}
-        song={currentPlaylist[currentSongIndex]}
-        toggleMute={this.toggleMute}
-        // toggleRandom={this.toggleRandom}
-        toggleRepeat={this.toggleRepeat}
-        handlePlay={this.handlePlay}
-        handleStop={this.handleStop}
-        handleVolume={this.handleVolume}
-        playerState={playerState}
-        volume={volume}
-        repeat={repeat}
-        // currentTime={currentTime}
-        // songDuration={songDuration}
-      />
+      <>
+        <GlobalStyle />
+        <Player
+          handleNextSong={this.handleNextSong}
+          handlePrevSong={this.handlePrevSong}
+          muted={muted}
+          song={currentPlaylist[currentSongIndex]}
+          toggleMute={this.toggleMute}
+          // toggleRandom={this.toggleRandom}
+          toggleRepeat={this.toggleRepeat}
+          handlePlay={this.handlePlay}
+          handleStop={this.handleStop}
+          handleVolume={this.handleVolume}
+          playerState={playerState}
+          volume={volume}
+          repeat={repeat}
+          // currentTime={currentTime}
+          // songDuration={songDuration}
+        />
+      </>
     );
   }
 }
