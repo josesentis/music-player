@@ -1,5 +1,30 @@
 import { createGlobalStyle } from 'styled-components';
+
 import { colors, space, typography } from '.';
+import Utilities from './utilities';
+
+const baseParagraph = `
+  line-height: ${space()};
+  margin-bottom: ${space(.25)};
+`;
+
+const baseParagraphFormat = `
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  & + h1, & + h2, & + h3 {
+    margin-top: ${space()};
+  }
+
+  & + fieldset {
+    margin-top: ${space()};
+  }
+
+  h1 + &, h2 + &, h3 + & {
+    margin-top: ${space()};
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
@@ -101,7 +126,6 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    color: ${colors.neutro[100]};
     font-family: ${typography.fontFamily};
     font-size: ${typography.fontSize}px;
     font-weight: 400;
@@ -115,6 +139,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a,
+  button,
   .link {
     color: ${colors.neutro[100]};
     cursor: pointer;
@@ -124,6 +149,20 @@ const GlobalStyle = createGlobalStyle`
       fill: ${colors.neutro[100]};
     }
   }
+
+  p {
+    ${baseParagraph};
+    ${baseParagraphFormat}
+
+    &.tag {
+      color: ${colors.neutro.base} !important;
+      margin-bottom: 0 !important;
+    }
+
+    &.p-nomargin { margin-bottom: ${space(.25)}; }
+  }
+
+  ${Utilities};
 `;
 
 export default GlobalStyle;

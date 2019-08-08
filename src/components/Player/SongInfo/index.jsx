@@ -19,8 +19,8 @@ const SongInfo = ({ song }) => (
         alt={`Title for ${song.title}`}
       />
     </div>
-    <div className="song-info__title">{song.title}</div>
-    <div className="song-info__singer">{song.singer}</div>
+    <p>{song.title}</p>
+    <p className="tag">{song.singer}</p>
   </SongInfoStyled>
 );
 

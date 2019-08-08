@@ -50,14 +50,6 @@ const SongInfoStyled = styled.div`
         width: 100%;
       }
     }
-
-    &__singer {
-      text-transform: uppercase;
-    }
-    
-    &__title {
-      margin-bottom: ${space(.25)};
-    }
   }
 `;
 
