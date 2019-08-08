@@ -34,4 +34,29 @@ const rgbToHex = (r, g, b) => {
     .join('');
 };
 
-export { hexToRgb, hover, rgbToHex };
+const bgGradient = (rotation, color1, color2) =>
+  `linear-gradient(${rotation}, ${color1} 0%, ${color2} 100%)`;
+
+const getRatio = (
+  originalWidth,
+  originalHeight,
+  width = 0,
+  height = 0
+) => {
+  let finalHeight;
+  let finalWidth;
+
+  if (width > 0) {
+    finalHeight = Math.ceil((width / originalWidth) * originalHeight) + 'px';
+    finalWidth = `${width}px`;
+  } else {
+    finalHeight = `${height}px`;
+    finalWidth = Math.ceil((height / originalHeight) * originalWidth) + 'px';
+  }
+  return `
+    height: ${finalHeight};
+    width: ${finalWidth};
+  `;
+};
+
+export { bgGradient, getRatio, hexToRgb, hover, rgbToHex };

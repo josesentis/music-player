@@ -1,4 +1,4 @@
-import { bgGradient } from './mixins/helpers';
+import { bgGradient } from './helpers';
 
 const colors = {
   basics: {

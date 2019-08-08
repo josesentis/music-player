@@ -1,6 +1,15 @@
 import { typography } from './';
 
 /**
+ * Modular Scale
+ * Returns the modular scale size in rems
+ * https://www.modularscale.com/?1&em&1.067
+ *
+ * @param {integer} n â€” Exponencial value
+ */
+const modular = n => `${Math.pow(typography.fontRatio, n) || 1}rem`;
+
+/**
  * Rems
  * Transforms pixels into rems based in the base-font-size set in the theme
  * file
@@ -20,4 +29,4 @@ const pixelate = n => `${n}px`;
  */
 const space = (n = 1) => `${typography.lineHeight * n}rem`;
 
-export { space, pixelate, rems };
+export { space, pixelate, rems, modular };

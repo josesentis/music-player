@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
-import { pixelate } from '..';
+
+import { pixelate } from '.';
 
 const breakpoints = {
   desktop: 992,
@@ -55,4 +56,5 @@ export function generateMedia() {
 }
 
 const media = generateMedia();
+
 export { media, breakpoints };
