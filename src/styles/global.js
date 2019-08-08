@@ -2,27 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import { colors, space, typography } from '.';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Titillium Web';
-    font-style: normal;
-    font-weight: 700;
-    src: local('Titillium Web Bold'), local('TitilliumWeb-Bold'), url(https://fonts.gstatic.com/s/titilliumweb/v6/NaPDcZTIAOhVxoMyOr9n_E7ffHjDGItzY5abuWI.woff2) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'Nunito Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Nunito Sans Regular'), local('NunitoSans-Regular'), url(https://fonts.gstatic.com/s/nunitosans/v3/pe0qMImSLYBIv1o4X1M8cce9I9tAcVwo.woff2) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'Nunito Sans';
-    font-style: normal;
-    font-weight: 800;
-    src: local('Nunito Sans ExtraBold'), local('NunitoSans-ExtraBold'), url(https://fonts.gstatic.com/s/nunitosans/v3/pe03MImSLYBIv1o4X1M8cc8aBc5tU1ECVZl_.woff2) format('woff2');
-  }
-
   html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
   blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img,
   ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center,
@@ -41,8 +20,8 @@ const GlobalStyle = createGlobalStyle`
   html,
   body {
     align-items: center;
-    background: ${colors.neutro.lighter};
-    color: ${colors.neutro.darkest};
+    background: ${colors.neutro[100]};
+    color: ${colors.neutro[900]};
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -110,7 +89,6 @@ const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility !important;
   }
 
-
   html.u-noscroll {
     overflow: hidden;
   }
@@ -123,25 +101,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    color: ${colors.neutro.darker};
-    font-family: ${typography.fontFallback};
+    color: ${colors.neutro[100]};
+    font-family: ${typography.fontFamily};
     font-size: ${typography.fontSize}px;
     font-weight: 400;
     letter-spacing: 0;
     line-height: ${space()};
     overflow-x: hidden;
-
-    html.fonts-loaded & {
-      font-family: ${typography.fontFamily};
-    }
-  }
-
-  input, textarea, select, button:not(link) {
-    font-family: ${typography.fontFallback};
-
-    html.fonts-loaded & {
-      font-family: ${typography.fontFamily};
-    }
   }
 
   b, strong, .strong {
@@ -150,12 +116,12 @@ const GlobalStyle = createGlobalStyle`
 
   a,
   .link {
-    color: ${colors.neutro.light};
+    color: ${colors.neutro[100]};
     cursor: pointer;
     text-decoration: none;
 
     svg {
-      fill: ${colors.neutro.light};
+      fill: ${colors.neutro[100]};
     }
   }
 `;
