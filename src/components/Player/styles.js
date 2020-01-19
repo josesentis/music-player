@@ -8,7 +8,7 @@ const PlayerStyled = styled.div`
   height: 100vh;
   max-height: 667px;
   max-width: 375px;
-  padding: ${space(.5)};
+  padding: ${space()};
   width: 100vw;
 `;
 
