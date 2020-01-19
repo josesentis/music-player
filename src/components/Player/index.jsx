@@ -17,7 +17,7 @@ class Player extends React.Component {
       this._player.pause();
       this._player.load();
 
-      if (this.props.playerState === 'play') { this._player.play(); }
+      if (this.props.playerState === 'play') this._player.play();
     }
 
     this._player.volume = this.props.volume / 100;
