@@ -1,7 +1,6 @@
 import React from "react";
 
 import Controls from './Controls';
-import ProgressBar from './ProgressBar';
 import SongInfo from './SongInfo';
 
 import PlayerStyled from "./styles";
@@ -84,11 +83,6 @@ class Player extends React.Component {
         >
           <source src={song.src} type="audio/mp3" />
         </audio>
-        <ProgressBar
-          onChange={this.handleProgress}
-          currentTime={currentTime}
-          songDuration={songDuration}
-        />
         <Controls
           {...this.props}
           currentTime={currentTime}
@@ -133,6 +127,7 @@ class Player extends React.Component {
             this.startProgressBar();
           }}
           muted={muted}
+          progressChange={this.handleProgress}
         />
       </PlayerStyled>
     );

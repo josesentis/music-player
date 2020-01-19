@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Range from '../Range';
+import Range from '../../../Range';
 
 import ProgressBarStyled from './styles';
 
@@ -24,7 +24,7 @@ class ProgressBar extends React.Component {
         </div>
         <Range
           onChange={onChange}
-          value={songDuration ? currentTime * 100 / songDuration : 0} 
+          value={songDuration ? currentTime * 100 / songDuration : 0}
         />
       </ProgressBarStyled>
     );

@@ -7,10 +7,17 @@ const btnSize = 45;
 const ControlsStyled = styled.div`
   padding: ${space(.5)};
 
-  .progress {
+  .progress,
+  .volume {
     align-items: center;
     display: flex;
     justify-content: space-between;
+
+  }
+
+  .progress-bar {
+    flex-grow: 1;
+    margin: 0 ${space()};
   }
 
   .control {
