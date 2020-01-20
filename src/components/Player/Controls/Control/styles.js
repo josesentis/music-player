@@ -1,32 +1,33 @@
 import styled from 'styled-components';
 
-import { space } from '../../../../styles';
+import { space, gradient } from '../../../../styles';
 
-const btnSize = 50;
+const btnSize = 30;
 
 const ControlStyled = styled.button`
-  height: ${btnSize}px;
-  min-width: ${btnSize}px;
   padding: ${space(.5)};
-  width: ${btnSize}px;
 
   svg {
-    height: 100%;
-    width: 100%;
+    height: ${btnSize}px;
+    width: ${btnSize}px;
   }
 
   &.large {
-    height: ${btnSize * 1.25}px;
-    min-width: ${btnSize * 1.25}px;
-    width: ${btnSize * 1.25}px;
+    svg {
+      height: ${btnSize * 1.25}px;
+      width: ${btnSize * 1.25}px;
+    }
+
+    background-image: ${gradient};
+    border-radius: 50%;
   }
 
   &.small {
     opacity: .8;
 
     svg {
-      height: 75%;
-      width: 75%;
+      height: ${btnSize * 0.75}px;
+      width: ${btnSize * 0.75}px;
     }
   }
 `;

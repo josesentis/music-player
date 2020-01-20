@@ -29,7 +29,7 @@ const PlayerStyled = styled.div`
   }
 
   .content {
-    background: rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, .5);
+    background: rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, .7);
     height: 100%;
     position: relative;
     z-index: 1;
