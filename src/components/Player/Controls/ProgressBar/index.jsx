@@ -17,13 +17,14 @@ class ProgressBar extends React.Component {
     const { onChange, currentTime, songDuration } = this.props;
 
     return (
-      <ProgressBarStyled className="progress-bar">
-        <div className="progress-bar__info">
+      <ProgressBarStyled>
+        <div className="info">
           <span>{this.convertTime(currentTime)}</span>
           <span>{this.convertTime(songDuration)}</span>
         </div>
         <Range
           onChange={onChange}
+          name="progress"
           value={songDuration ? currentTime * 100 / songDuration : 0}
         />
       </ProgressBarStyled>

@@ -1,20 +1,14 @@
 import styled from 'styled-components';
 
-import { colors, space } from '../../../../styles';
-
-const inputStyles = `
-  background-color: blue
-`;
+import { space } from '../../../../styles';
 
 const ProgressBarStyled = styled.div`
   margin: ${space()} 0 ${space(1.5)};
 
-  .progress-bar {
-    &__info {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-    }
+  .info {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 

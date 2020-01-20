@@ -75,6 +75,7 @@ class Player extends React.Component {
 
     return (
       <PlayerStyled
+        id="player"
         background={song.img}
       >
         <span className="background"></span>
@@ -133,7 +134,6 @@ class Player extends React.Component {
               this.startProgressBar();
             }}
             muted={muted}
-            progressChange={this.handleProgress}
           />
         </div>
       </PlayerStyled>

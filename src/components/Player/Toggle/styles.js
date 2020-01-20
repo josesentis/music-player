@@ -13,10 +13,11 @@ const ToggleStyled = styled.button`
     fill: ${colors.neutro.lightest};
     left: ${space()};
     position: absolute;
+    transform: rotate(180deg);
     width: 20px;
   }
 
-  .active & svg { transform: rotate(180deg); }
+  .active & svg { transform: rotate(0deg); }
 `;
 
 export default ToggleStyled;
