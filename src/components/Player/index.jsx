@@ -2,6 +2,7 @@ import React from "react";
 
 import Controls from './Controls';
 import SongInfo from './SongInfo';
+import Toggle from './Toggle';
 
 import PlayerStyled from "./styles";
 
@@ -9,7 +10,7 @@ class Player extends React.Component {
   state = {
     currentTime: 0,
     songDuration: 0
-  }
+  };
 
   componentDidUpdate = prevProps => {
     if (prevProps.song !== this.props.song) {
@@ -20,27 +21,27 @@ class Player extends React.Component {
     }
 
     this._player.volume = this.props.volume / 100;
-  }
+  };
 
   updateTime = timestamp => {
     const currentTime = Math.floor(timestamp);
 
     this.setState({ currentTime });
-  }
+  };
 
   handleProgress = event => {
     const currentTime = Math.floor(this.state.songDuration * event.currentTarget.value / 100);
 
     this.updateTime(currentTime);
     this._player.currentTime = currentTime;
-  }
+  };
 
   clearPlayer = () => {
     clearInterval(this._interval);
     this._player.currentTime = 0;
     this._player.removeEventListener('ended', this.props.handleNextSong);
     this.setState({ currentTime: 0, songDuration: 0 });
-  }
+  };
 
   startProgressBar = () => {
     const songDuration = Math.floor(this._player.duration);
@@ -53,7 +54,7 @@ class Player extends React.Component {
     }, 100);
 
     this._player.addEventListener('ended', this.props.handleNextSong);
-  }
+  };
 
   render() {
     const {
@@ -74,6 +75,7 @@ class Player extends React.Component {
 
     return (
       <PlayerStyled>
+        <Toggle />
         <SongInfo song={song} />
         <audio
           muted={muted}
@@ -131,7 +133,7 @@ class Player extends React.Component {
         />
       </PlayerStyled>
     );
-  }
+  };
 }
 
 export default Player;

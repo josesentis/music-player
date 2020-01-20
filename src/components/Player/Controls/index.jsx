@@ -28,7 +28,7 @@ const Controls = ({
       onChange={handleProgress}
       currentTime={currentTime}
       songDuration={songDuration}
-      />
+    />
     <div className="controls">
       {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
       <Control onClick={handlePrevSong} icon={'prev'} />

@@ -21,9 +21,13 @@ const ControlStyled = styled.button`
     width: ${btnSize * 1.25}px;
   }
 
-  &.small svg {
-    height: 75%;
-    width: 75%;
+  &.small {
+    opacity: .8;
+
+    svg {
+      height: 75%;
+      width: 75%;
+    }
   }
 `;
 
