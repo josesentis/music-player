@@ -8,10 +8,10 @@ const thumbStyles = `
   border-radius: 0;
   box-shadow: none;
   cursor: pointer;
-  height: 8px;
+  height: 5px;
   margin-top: 0px;
   -webkit-appearance: none;
-  width: 8px;
+  width: 5px;
 `;
 
 const trackStyles = `
@@ -20,7 +20,7 @@ const trackStyles = `
   border: none;
   box-shadow: none;
   cursor: pointer;
-  height: 8px;
+  height: 5px;
   width: 100%;
 `;
 
