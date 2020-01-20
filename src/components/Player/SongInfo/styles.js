@@ -12,20 +12,19 @@ const SongInfoStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: ${space()};
   position: relative;
   text-align: center;
 
-  .song-info {
-    &__img {
-      border-radius: 50%;
-      overflow: hidden;
-      padding: ${space()} ${space(.5)};
+  .cover {
+    border-radius: 50%;
+    overflow: hidden;
+    padding: ${space()} ${space(.5)};
 
-      img {
-        height: 100%;
-        border-radius: 50%;
-        width: 100%;
-      }
+    img {
+      height: 100%;
+      border-radius: 50%;
+      width: 100%;
     }
   }
 `;

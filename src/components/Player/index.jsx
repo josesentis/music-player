@@ -74,63 +74,68 @@ class Player extends React.Component {
     } = this.state;
 
     return (
-      <PlayerStyled>
-        <Toggle />
-        <SongInfo song={song} />
-        <audio
-          muted={muted}
-          ref={el => {
-            this._player = el;
-          }}
-        >
-          <source src={song.src} type="audio/mp3" />
-        </audio>
-        <Controls
-          {...this.props}
-          currentTime={currentTime}
-          songDuration={songDuration}
-          handleProgress={this.handleProgress}
-          stop={() => {
-            this._player.pause();
-
-            handleStop();
-            this.clearPlayer();
-          }}
-          play={() => {
-            if (playerState === 'play') {
+      <PlayerStyled
+        background={song.img}
+      >
+        <span className="background"></span>
+        <div className="content">
+          <Toggle />
+          <SongInfo song={song} />
+          <audio
+            muted={muted}
+            ref={el => {
+              this._player = el;
+            }}
+          >
+            <source src={song.src} type="audio/mp3" />
+          </audio>
+          <Controls
+            {...this.props}
+            currentTime={currentTime}
+            songDuration={songDuration}
+            handleProgress={this.handleProgress}
+            stop={() => {
               this._player.pause();
-              clearInterval(this._interval);
-            } else {
-              this._player.play();
+
+              handleStop();
+              this.clearPlayer();
+            }}
+            play={() => {
+              if (playerState === 'play') {
+                this._player.pause();
+                clearInterval(this._interval);
+              } else {
+                this._player.play();
+                this.startProgressBar();
+              }
+
+              handlePlay();
+            }}
+            handleNextSong={() => {
+              if (repeat) {
+                this._player.currentTime = 0;
+              } else {
+                handleNextSong();
+              }
+
+              this.clearPlayer();
               this.startProgressBar();
-            }
+            }}
+            handlePrevSong={() => {
+              if (repeat) {
+                this._player.currentTime = 0;
+                return;
+              } else {
+                handlePrevSong();
+              }
 
-            handlePlay();
-          }}
-          handleNextSong={() => {
-            if (repeat) {
-              this._player.currentTime = 0;
-            } else {
-              handleNextSong();
-            }
-
-            this.clearPlayer();
-            this.startProgressBar();
-          }}
-          handlePrevSong={() => {
-            if (repeat) {
-              this._player.currentTime = 0;
-              return;
-            } else {
-              handlePrevSong();
-            }
-
-            this.clearPlayer();
-            this.startProgressBar();
-          }}
-          muted={muted}
-          progressChange={this.handleProgress}
-        />
+              this.clearPlayer();
+              this.startProgressBar();
+            }}
+            muted={muted}
+            progressChange={this.handleProgress}
+          />
+        </div>
       </PlayerStyled>
     );
   };
