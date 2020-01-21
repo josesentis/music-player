@@ -4,13 +4,24 @@ import Controls from './Controls';
 import SongInfo from './SongInfo';
 import Toggle from './Toggle';
 
-import PlayerStyled from "./styles";
+import { client } from '../../apollo';
+import PlayerStyled from './styles';
+import GET_ACTIVE_PLAYER from './queries';
 
 class Player extends React.Component {
   state = {
     currentTime: 0,
-    songDuration: 0
+    songDuration: 0,
+    activePlayer: false
   };
+
+  componentDidMount = () => {
+    client
+      .query({ query: GET_ACTIVE_PLAYER })
+      .then(({ data: { activePlayer } }) => {
+        this.setState({ activePlayer });
+      });
+  }
 
   componentDidUpdate = prevProps => {
     if (prevProps.song !== this.props.song) {
@@ -71,12 +82,14 @@ class Player extends React.Component {
     const {
       currentTime,
       songDuration,
+      activePlayer
     } = this.state;
 
     return (
       <PlayerStyled
         id="player"
         background={song.img}
+        className={activePlayer ? 'active' : ''}
       >
         <span className="background"></span>
         <div className="content">

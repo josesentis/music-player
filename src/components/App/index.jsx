@@ -3,6 +3,7 @@ import 'normalize.css';
 
 import Player from '../Player';
 
+// import { client } from '../../apollo';
 import playlist from '../../data/playlist.json';
 // import { shuffle } from '../../utils';
 
@@ -54,8 +55,10 @@ class App extends React.Component {
 
     if (playerState === 'play') {
       this.setState({ playerState: 'pause' });
+      // client.writeData({ data: { playerState: 'pause' } })
     } else {
       this.setState({ playerState: 'play' });
+      // client.writeData({ data: { playerState: 'play' } })
     }
   }
 
@@ -134,7 +137,6 @@ class App extends React.Component {
 
   render = () => {
     const {
-      // currentTime,
       // songDuration,
       currentSongIndex,
       currentPlaylist,

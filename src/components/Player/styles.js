@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
 import { colors, hexToRgb } from '../../styles';
+import { TOGGLE_HEIGHT } from './Toggle/styles';
 
 const rgb = hexToRgb(colors.neutro[900]);
 
 const PlayerStyled = styled.div`
   color: ${colors.neutro[100]};
-  height: 100vh;
+  height: 100%;
+  left: 0;
   max-height: 667px;
   max-width: 375px;
   overflow: hidden;
-  position: relative;
-  width: 100vw;
+  position: absolute;
+  top: calc(100% - ${TOGGLE_HEIGHT}px);
+  width: 100%;
+
+  &.active { top: 0; }
 
   .background {
     background-image: url(${props => props.background});
