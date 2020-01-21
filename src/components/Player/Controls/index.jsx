@@ -1,33 +1,46 @@
 import React from 'react';
 
-import Button from './Button';
-import Volume from './Volume';
+import Range from '../../Range';
+import Control from './Control';
+import ProgressBar from './ProgressBar';
+
+import ControlsStyled from './styles';
 
 const Controls = ({
   handleNextSong,
   handlePrevSong,
+  handleProgress,
   handleVolume,
   muted,
   playerState,
   play,
-  stop,
+  // stop,
   toggleRepeat,
   // toggleRandom,
   toggleMute,
-  volume
-}) => {
-  return (
+  volume,
+  currentTime,
+  songDuration
+}) => (
+  <ControlsStyled>
+    {/*<Control onClick={stop} icon={'stop'} />*/}
+    <ProgressBar
+      onChange={handleProgress}
+      currentTime={currentTime}
+      songDuration={songDuration}
+    />
     <div className="controls">
-      <Button onClick={play} icon={playerState === 'play' ? 'pause' : 'play'} />
-      <Button onClick={stop} icon={'stop'} />
-      <Button onClick={toggleRepeat} icon={'repeat'} />
-      {/* <Button onClick={toggleRandom} icon={'random'} /> */}
-      <Button onClick={toggleMute} icon={muted ? 'muted' : 'mute'} />
-      <Volume onChange={handleVolume} muted={muted} value={volume} />
-      <Button onClick={handlePrevSong} icon={'prev'} />
-      <Button onClick={handleNextSong} icon={'next'} />
+      {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
+      <Control onClick={handlePrevSong} icon={'prev'} />
+      <Control onClick={play} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
+      <Control onClick={handleNextSong} icon={'next'} />
+      <Control onClick={toggleRepeat} icon={'repeat'} type="small" />
     </div>
-  )
-};
+    <div className="controls">
+      <Control onClick={toggleMute} icon={muted || parseInt(volume) === 0 ? 'muted' : volume > 50 ? 'volumeHigh' : 'volumeLow'} />
+      <Range className="small" onChange={handleVolume} value={muted ? 0 : volume} />
+    </div>
+  </ControlsStyled>
+);
 
 export default Controls;

@@ -1,9 +1,12 @@
 import React from 'react';
+import 'normalize.css';
 
 import Player from '../Player';
-import playlist from '../../data/playlist.json';
 
+import playlist from '../../data/playlist.json';
 // import { shuffle } from '../../utils';
+
+import GlobalStyle from '../../styles/global';
 
 import './App.css';
 
@@ -23,6 +26,10 @@ class App extends React.Component {
     volume: 60,
     // currentRandomIndex: 0,
     // playedSongs: 0,
+  }
+
+  componentDidMount() {
+    this.touchable();
   }
 
   // setRandomOrders = () => {
@@ -114,6 +121,17 @@ class App extends React.Component {
     this.setState({ volume: event.currentTarget.value });
   }
 
+  touchable() {
+    const typedWindow = window || null;
+    const touchsupport =
+      'ontouchstart' in typedWindow ||
+      typedWindow.navigator.maxTouchPoints > 0 ||
+      typedWindow.navigator.msMaxTouchPoints > 0;
+    const touchClass = touchsupport ? 'touch' : 'non-touch';
+
+    document.documentElement.classList.add(touchClass);
+  }
+
   render = () => {
     const {
       // currentTime,
@@ -129,23 +147,26 @@ class App extends React.Component {
     console.log(this.state);
 
     return (
-      <Player
-        handleNextSong={this.handleNextSong}
-        handlePrevSong={this.handlePrevSong}
-        muted={muted}
-        song={currentPlaylist[currentSongIndex]}
-        toggleMute={this.toggleMute}
-        // toggleRandom={this.toggleRandom}
-        toggleRepeat={this.toggleRepeat}
-        handlePlay={this.handlePlay}
-        handleStop={this.handleStop}
-        handleVolume={this.handleVolume}
-        playerState={playerState}
-        volume={volume}
-        repeat={repeat}
-        // currentTime={currentTime}
-        // songDuration={songDuration}
-      />
+      <>
+        <GlobalStyle />
+        <Player
+          handleNextSong={this.handleNextSong}
+          handlePrevSong={this.handlePrevSong}
+          muted={muted}
+          song={currentPlaylist[currentSongIndex]}
+          toggleMute={this.toggleMute}
+          // toggleRandom={this.toggleRandom}
+          toggleRepeat={this.toggleRepeat}
+          handlePlay={this.handlePlay}
+          handleStop={this.handleStop}
+          handleVolume={this.handleVolume}
+          playerState={playerState}
+          volume={volume}
+          repeat={repeat}
+          // currentTime={currentTime}
+          // songDuration={songDuration}
+        />
+      </>
     );
   }
 }
