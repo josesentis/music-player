@@ -1,37 +1,40 @@
 import React from "react";
+import { graphql, withApollo } from 'react-apollo';
 
 import Controls from './Controls';
 import SongInfo from './SongInfo';
 import Toggle from './Toggle';
 
 import { client } from '../../apollo';
-import GET_ACTIVE_PLAYER from './queries';
+import playlists from '../../data/playlist.json';
+import GET_PLAYER_STATE from './queries';
 import PlayerStyled from './styles';
 
 class Player extends React.Component {
   state = {
     currentTime: 0,
-    songDuration: 0,
-    activePlayer: false
+    songDuration: 0
   };
 
-  componentDidMount = () => {
-    client
-      .query({ query: GET_ACTIVE_PLAYER })
-      .then(({ data: { activePlayer } }) => {
-        this.setState({ activePlayer });
-      });
-  }
-
   componentDidUpdate = prevProps => {
-    if (prevProps.song !== this.props.song) {
-      this._player.pause();
-      this._player.load();
+    const { loading, songIndex, playlistId } = this.props.data;
+    const prevPlaylist = prevProps.data.playlistId;
+    const prevSong = prevProps.data.songIndex;
 
-      if (this.props.playerState === 'play') this._player.play();
+    if (!loading) {
+      if (prevSong !== songIndex || prevPlaylist !== playlistId) {
+        console.log('Song changed');
+
+        this._player.pause();
+        this._player.load();
+
+        if (this.props.data.playerState === 'play') this._player.play();
+      } else {
+        console.log('Song didn\'t change');
+      }
+
+      this._player.volume = this.props.data.volume / 100;
     }
-
-    this._player.volume = this.props.volume / 100;
   };
 
   updateTime = timestamp => {
@@ -41,7 +44,9 @@ class Player extends React.Component {
   };
 
   handleProgress = event => {
-    const currentTime = Math.floor(this.state.songDuration * event.currentTarget.value / 100);
+    console.log('Handle progress');
+
+    const currentTime = Math.floor(this._player.duration * event.currentTarget.value / 100);
 
     this.updateTime(currentTime);
     this._player.currentTime = currentTime;
@@ -50,11 +55,13 @@ class Player extends React.Component {
   clearPlayer = () => {
     clearInterval(this._interval);
     this._player.currentTime = 0;
-    this._player.removeEventListener('ended', this.props.handleNextSong);
+    this._player.removeEventListener('ended', this.handleNextSong);
+
     this.setState({ currentTime: 0, songDuration: 0 });
   };
 
   startProgressBar = () => {
+    console.log('Start progress bar');
     const songDuration = Math.floor(this._player.duration);
 
     this.setState({ songDuration });
@@ -64,26 +71,153 @@ class Player extends React.Component {
       this.updateTime(currentTime);
     }, 100);
 
-    this._player.addEventListener('ended', this.props.handleNextSong);
+    this._player.addEventListener('ended', this.handleNextSong);
   };
 
+  // setRandomOrders = () => {
+  //   let randomOrders;
+
+  //   if (this.state.playerState !== "stop") {
+  //     const tempplaylist = this.state.playlist.slice();
+
+  //     randomOrders = tempplaylist.splice(this.state.songIndex, 1);
+  //     randomOrders = [...randomOrders, ...shuffle(tempplaylist)];
+  //   } else {
+  //     randomOrders = shuffle(this.state.playlist);
+  //   }
+
+  //   this.setState({ randomOrders });
+  // }
+
+  handlePlay = () => {
+    const { playerState } = this.props.data;
+
+    console.log('Handle Play', playerState);
+
+    if (playerState === 'play') {
+      // this.setState({ playerState: 'pause' });
+      this._player.pause();
+      clearInterval(this._interval);
+      client.writeData({ data: { playerState: 'pause' } });
+    } else {
+      // this.setState({ playerState: 'play' });
+      this._player.play();
+      this.startProgressBar();
+      client.writeData({ data: { playerState: 'play' } });
+    }
+  }
+
+  handleStop = () => {
+    console.log('Handle Stop');
+
+    this._player.pause();
+    this.clearPlayer();
+
+    this.setState({
+      songIndex: 0,
+      // playerState: 'stop'
+    });
+    client.writeData({ data: { playerState: 'stop' } })
+  }
+
+  toggleMute = () => {
+    console.log('Handle Mute');
+
+    // // this.setState({ muted: !this.state.muted });
+    client.writeData({ data: { muted: !this.props.data.muted } })
+  }
+
+  // toggleRandom = () => {
+  //   console.log('Handle Random');
+
+  //   if (!this.state.random) { this.setRandomOrders(); }
+
+  //   this.setState({ random: !this.state.random });
+  //   client.writeData({ data: { random: !this.props.data.random } })
+  // }
+
+  toggleRepeat = () => {
+    console.log('Handle Repeat');
+
+    // this.setState({ repeat: !this.state.repeat });
+    client.writeData({ data: { repeat: !this.props.data.repeat } })
+  }
+
+  handleNextSong = () => {
+    console.log('Handle NextSong');
+
+    if (this.state.repeat) {
+      this._player.currentTime = 0;
+    } else {
+      let nextSong = this.state.songIndex + 1;
+
+      if (nextSong < this.state.playlist.length) {
+        if (this.state.playerState === 'stop') {
+          // this.setState({ playerState: 'play' });
+          client.writeData({ data: { playerState: 'play' } })
+        }
+
+        // this.setState({ songIndex: nextSong });
+        client.writeData({ data: { songIndex: nextSong } })
+      } else if (this.state.playerState !== 'stop') {
+        this.handleStop();
+      }
+    }
+
+    this.clearPlayer();
+    this.startProgressBar();
+  }
+
+  handlePrevSong = () => {
+    console.log('Handle PrevSong');
+
+    if (this.state.repeat) {
+      this._player.currentTime = 0;
+      return;
+    } else {
+      if (this.state.songIndex > 0) {
+        // this.setState({ songIndex: this.state.songIndex - 1 });
+        client.writeData({ data: { songIndex: this.state.songIndex - 1 } })
+
+        if (this.state.playerState === 'stop') {
+          // this.setState({ playerState: 'play' });
+          client.writeData({ data: { playerState: 'play' } })
+        }
+      }
+    }
+
+    this.clearPlayer();
+    this.startProgressBar();
+  }
+
+  handleVolume = event => {
+    console.log('Handle Volume');
+
+    // this.setState({ volume: event.currentTarget.value });
+    client.writeData({ data: { volume: event.currentTarget.value } })
+  }
+
   render() {
+    console.log('Render');
+
     const {
-      handlePlay,
-      handleStop,
-      handleNextSong,
-      handlePrevSong,
-      muted,
-      playerState,
-      song,
-      repeat
+      data: {
+        activePlayer,
+        muted,
+        songIndex,
+        playlistId,
+        loading
+      }
     } = this.props;
 
     const {
       currentTime,
       songDuration,
-      activePlayer
     } = this.state;
+
+    if (loading) return <p>Loading...</p>;
+
+    const song = playlists[playlistId][songIndex];
 
     return (
       <PlayerStyled
@@ -104,49 +238,16 @@ class Player extends React.Component {
             <source src={song.src} type="audio/mp3" />
           </audio>
           <Controls
-            {...this.props}
             currentTime={currentTime}
             songDuration={songDuration}
             handleProgress={this.handleProgress}
-            stop={() => {
-              this._player.pause();
-
-              handleStop();
-              this.clearPlayer();
-            }}
-            play={() => {
-              if (playerState === 'play') {
-                this._player.pause();
-                clearInterval(this._interval);
-              } else {
-                this._player.play();
-                this.startProgressBar();
-              }
-
-              handlePlay();
-            }}
-            handleNextSong={() => {
-              if (repeat) {
-                this._player.currentTime = 0;
-              } else {
-                handleNextSong();
-              }
-
-              this.clearPlayer();
-              this.startProgressBar();
-            }}
-            handlePrevSong={() => {
-              if (repeat) {
-                this._player.currentTime = 0;
-                return;
-              } else {
-                handlePrevSong();
-              }
-
-              this.clearPlayer();
-              this.startProgressBar();
-            }}
+            stop={this.handleStop}
+            play={this.handlePlay}
+            handleNextSong={this.handleNextSong}
+            handlePrevSong={this.handlePrevSong}
+            handleVolume={this.handleVolume}
             muted={muted}
+            {...this.props.data}
           />
         </div>
       </PlayerStyled>
@@ -154,4 +255,9 @@ class Player extends React.Component {
   };
 }
 
-export default Player;
+// export default Player;
+export default graphql(GET_PLAYER_STATE, {
+  options: () => ({
+    fetchPolicy: 'cache-and-network'
+  })
+})(withApollo(Player));

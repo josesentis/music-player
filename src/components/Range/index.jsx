@@ -2,7 +2,7 @@ import React from 'react';
 
 import RangeStyled from './styles';
 
-class Range extends React.Component {
+class Range extends React.PureComponent {
   render () {
     const { onChange, value, name } = this.props;
 

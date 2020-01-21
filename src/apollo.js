@@ -8,6 +8,11 @@ cache.writeData({
   data: {
     playerState: 'stop',
     activePlayer: true,
+    muted: false,
+    repeat: false,
+    volume: 30,
+    songIndex: 3,
+    playlistId: '90s'
   }
 });
 
@@ -16,4 +21,4 @@ const client = new ApolloClient({
   resolvers
 });
 
-export { client };
+export { client, cache };
