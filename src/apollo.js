@@ -6,8 +6,8 @@ const cache = new InMemoryCache();
 
 cache.writeData({
   data: {
-    playerState: 'pause',
-    activePlayer: false,
+    playerState: 'stop',
+    activePlayer: true,
   }
 });
 

@@ -7,7 +7,9 @@ import Player from '../Player';
 import playlist from '../../data/playlist.json';
 // import { shuffle } from '../../utils';
 
+import { client } from '../../apollo';
 import GlobalStyle from '../../styles/global';
+import GET_PLAYER_STATE from './queries';
 
 import './App.css';
 
@@ -31,6 +33,12 @@ class App extends React.Component {
 
   componentDidMount() {
     this.touchable();
+
+    client
+      .query({ query: GET_PLAYER_STATE })
+      .then(({ data: { playerState } }) => {
+        this.setState({ playerState });
+      });
   }
 
   // setRandomOrders = () => {
@@ -103,7 +111,7 @@ class App extends React.Component {
 
       this.setState({ currentSongIndex: nextSong });
     } else if (this.state.playerState !== 'stop') {
-        this.handleStop();
+      this.handleStop();
     }
 
   }
@@ -165,8 +173,8 @@ class App extends React.Component {
           playerState={playerState}
           volume={volume}
           repeat={repeat}
-          // currentTime={currentTime}
-          // songDuration={songDuration}
+        // currentTime={currentTime}
+        // songDuration={songDuration}
         />
       </>
     );

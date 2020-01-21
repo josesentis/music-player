@@ -5,8 +5,8 @@ import SongInfo from './SongInfo';
 import Toggle from './Toggle';
 
 import { client } from '../../apollo';
-import PlayerStyled from './styles';
 import GET_ACTIVE_PLAYER from './queries';
+import PlayerStyled from './styles';
 
 class Player extends React.Component {
   state = {
