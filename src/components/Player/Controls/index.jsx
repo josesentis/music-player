@@ -1,8 +1,8 @@
 import React from 'react';
 
+import Button from '../../Button';
+import ProgressBar from '../../ProgressBar';
 import Range from '../../Range';
-import Control from './Control';
-import ProgressBar from './ProgressBar';
 
 import ControlsStyled from './styles';
 
@@ -31,13 +31,13 @@ const Controls = ({
       />
       <div className="controls">
         {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
-        <Control onClick={handlePrevSong} icon={'prev'} />
-        <Control onClick={play} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
-        <Control onClick={handleNextSong} icon={'next'} />
-        <Control onClick={toggleRepeat} icon={'repeat'} type="small" className="toggle" />
+        <Button onClick={handlePrevSong} icon={'prev'} />
+        <Button onClick={play} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
+        <Button onClick={handleNextSong} icon={'next'} />
+        <Button onClick={toggleRepeat} icon={'repeat'} type="small" className="toggle" />
       </div>
       <div className="controls">
-        <Control
+        <Button
           onClick={toggleMute}
           icon={muted || parseInt(volume) === 0 ? 'muted' : volume > 50 ? 'volumeHigh' : 'volumeLow'}
           className="toggle active small"

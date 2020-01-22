@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Icon from '../../../Icon';
+import Icon from '../Icon';
 
-import ControlStyled from './styles';
+import ButtonStyled from './styles';
 
-const Control = ({ onClick, icon = 'play', type = 'normal', className = '' }) => (
-  <ControlStyled
+const Button = ({ onClick, icon = 'play', type = 'normal', className = '' }) => (
+  <ButtonStyled
     className={`${type} ${className}`}
     onClick={event => {
       const _self = event.currentTarget;
@@ -18,7 +18,7 @@ const Control = ({ onClick, icon = 'play', type = 'normal', className = '' }) =>
     }}
   >
     <Icon variant={icon} />
-  </ControlStyled>
+  </ButtonStyled>
 );
 
-export default Control;
+export default Button;

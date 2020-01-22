@@ -1,9 +1,12 @@
 import gql from "graphql-tag";
 
-const GET_ACTIVE_PLAYER = gql`
+const GET_PLAYER_STATUS = gql`
   query getActivePlayer {
+    playerState @client
     activePlayer @client
+    songIndex @client
+    playlistId @client
   }
 `;
 
-export default GET_ACTIVE_PLAYER;
+export default GET_PLAYER_STATUS;

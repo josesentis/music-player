@@ -3,11 +3,11 @@ import { useQuery } from "@apollo/react-hooks";
 
 import Chevron from '../../../assets/Chevron';
 
-import GET_ACTIVE_PLAYER from './queries';
+import GET_PLAYER_STATUS from './queries';
 import ToggleStyled from './styles';
 
 const Toggle = () => {
-  const { data: { activePlayer }, client } = useQuery(GET_ACTIVE_PLAYER );
+  const { data: { activePlayer }, client } = useQuery(GET_PLAYER_STATUS);
 
   return (
     <ToggleStyled
@@ -20,7 +20,8 @@ const Toggle = () => {
       }}
     >
       <Chevron />
-      <span>Now playing</span>
+      {activePlayer && <span>Now playing</span>}
+      {/* {!activePlayer && ()} */}
     </ToggleStyled>
   )
 };

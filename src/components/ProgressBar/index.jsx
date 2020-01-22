@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Range from '../../../Range';
+import Range from '../Range';
 
-import { convertTime } from '../../../../utils';
+import { convertTime } from '../../utils';
 import ProgressBarStyled from './styles';
 
 const ProgressBar = ({ onChange, currentTime, songDuration }) => (

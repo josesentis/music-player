@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-import { space, gradient } from '../../../../styles';
+import { space, gradient } from '../../styles';
 
 const btnSize = 30;
 
-const ControlStyled = styled.button`
+const ButtonStyled = styled.button`
   padding: ${space(.5)};
 
   svg {
@@ -32,4 +32,4 @@ const ControlStyled = styled.button`
   }
 `;
 
-export default ControlStyled;
+export default ButtonStyled;

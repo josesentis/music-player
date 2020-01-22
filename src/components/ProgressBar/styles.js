@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { space } from '../../../../styles';
+import { space } from '../../styles';
 
 const ProgressBarStyled = styled.div`
   margin: ${space()} 0 ${space(1.5)};
