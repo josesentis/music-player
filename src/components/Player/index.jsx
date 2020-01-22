@@ -17,20 +17,16 @@ class Player extends React.Component {
   };
 
   componentDidUpdate = prevProps => {
-    const { loading, songIndex, playlistId } = this.props.data;
+    const { loading, songIndex, playlistId } = this.props.data;
     const prevPlaylist = prevProps.data.playlistId;
     const prevSong = prevProps.data.songIndex;
 
     if (!loading) {
       if (prevSong !== songIndex || prevPlaylist !== playlistId) {
-        console.log('Song changed');
-
         this._player.pause();
         this._player.load();
 
         if (this.props.data.playerState === 'play') this._player.play();
-      } else {
-        console.log('Song didn\'t change');
       }
 
       this._player.volume = this.props.data.volume / 100;
@@ -44,8 +40,6 @@ class Player extends React.Component {
   };
 
   handleProgress = event => {
-    console.log('Handle progress');
-
     const currentTime = Math.floor(this._player.duration * event.currentTarget.value / 100);
 
     this.updateTime(currentTime);
@@ -57,11 +51,13 @@ class Player extends React.Component {
     this._player.currentTime = 0;
     this._player.removeEventListener('ended', this.handleNextSong);
 
-    this.setState({ currentTime: 0, songDuration: 0 });
+    this.setState({
+      currentTime: 0,
+      songDuration: 0
+    });
   };
 
   startProgressBar = () => {
-    console.log('Start progress bar');
     const songDuration = Math.floor(this._player.duration);
 
     this.setState({ songDuration });
@@ -92,15 +88,11 @@ class Player extends React.Component {
   handlePlay = () => {
     const { playerState } = this.props.data;
 
-    console.log('Handle Play', playerState);
-
     if (playerState === 'play') {
-      // this.setState({ playerState: 'pause' });
       this._player.pause();
       clearInterval(this._interval);
       client.writeData({ data: { playerState: 'pause' } });
     } else {
-      // this.setState({ playerState: 'play' });
       this._player.play();
       this.startProgressBar();
       client.writeData({ data: { playerState: 'play' } });
@@ -108,24 +100,19 @@ class Player extends React.Component {
   }
 
   handleStop = () => {
-    console.log('Handle Stop');
-
     this._player.pause();
     this.clearPlayer();
 
-    this.setState({
-      songIndex: 0,
-      // playerState: 'stop'
+    client.writeData({
+      data: {
+        songIndex: 0,
+        playerState: 'stop'
+      }
     });
-    client.writeData({ data: { playerState: 'stop' } })
   }
 
-  toggleMute = () => {
-    console.log('Handle Mute');
-
-    // // this.setState({ muted: !this.state.muted });
-    client.writeData({ data: { muted: !this.props.data.muted } })
-  }
+  toggleMute = () => { client.writeData({ data: { muted: !this.props.data.muted } }); }
+  toggleRepeat = () => { client.writeData({ data: { repeat: !this.props.data.repeat } }); }
 
   // toggleRandom = () => {
   //   console.log('Handle Random');
@@ -136,30 +123,20 @@ class Player extends React.Component {
   //   client.writeData({ data: { random: !this.props.data.random } })
   // }
 
-  toggleRepeat = () => {
-    console.log('Handle Repeat');
-
-    // this.setState({ repeat: !this.state.repeat });
-    client.writeData({ data: { repeat: !this.props.data.repeat } })
-  }
-
   handleNextSong = () => {
-    console.log('Handle NextSong');
+    const { songIndex, playlistId, playerState, repeat } = this.props.data;
 
-    if (this.state.repeat) {
-      this._player.currentTime = 0;
-    } else {
-      let nextSong = this.state.songIndex + 1;
+    if (!repeat) {
+      const nextSong = songIndex + 1;
 
-      if (nextSong < this.state.playlist.length) {
-        if (this.state.playerState === 'stop') {
-          // this.setState({ playerState: 'play' });
-          client.writeData({ data: { playerState: 'play' } })
-        }
-
-        // this.setState({ songIndex: nextSong });
-        client.writeData({ data: { songIndex: nextSong } })
-      } else if (this.state.playerState !== 'stop') {
+      if (nextSong < playlists[playlistId].length) {
+        client.writeData({
+          data: {
+            songIndex: nextSong,
+            playerState: 'play'
+          }
+        });
+      } else if (playerState !== 'stop') {
         this.handleStop();
       }
     }
@@ -169,21 +146,17 @@ class Player extends React.Component {
   }
 
   handlePrevSong = () => {
-    console.log('Handle PrevSong');
+    const { songIndex, repeat } = this.props.data;
 
-    if (this.state.repeat) {
-      this._player.currentTime = 0;
-      return;
-    } else {
-      if (this.state.songIndex > 0) {
-        // this.setState({ songIndex: this.state.songIndex - 1 });
-        client.writeData({ data: { songIndex: this.state.songIndex - 1 } })
+    if (!repeat && songIndex > 0) {
+      const nextSong = songIndex - 1;
 
-        if (this.state.playerState === 'stop') {
-          // this.setState({ playerState: 'play' });
-          client.writeData({ data: { playerState: 'play' } })
+      client.writeData({
+        data: {
+          songIndex: nextSong,
+          playerState: 'play'
         }
-      }
+      });
     }
 
     this.clearPlayer();
@@ -191,15 +164,15 @@ class Player extends React.Component {
   }
 
   handleVolume = event => {
-    console.log('Handle Volume');
-
-    // this.setState({ volume: event.currentTarget.value });
-    client.writeData({ data: { volume: event.currentTarget.value } })
+    client.writeData({
+      data: {
+        muted: false,
+        volume: event.currentTarget.value
+      }
+    });
   }
 
   render() {
-    console.log('Render');
-
     const {
       data: {
         activePlayer,
@@ -241,11 +214,13 @@ class Player extends React.Component {
             currentTime={currentTime}
             songDuration={songDuration}
             handleProgress={this.handleProgress}
-            stop={this.handleStop}
+            // stop={this.handleStop}
             play={this.handlePlay}
             handleNextSong={this.handleNextSong}
             handlePrevSong={this.handlePrevSong}
             handleVolume={this.handleVolume}
+            toggleMute={this.toggleMute}
+            toggleRepeat={this.toggleRepeat}
             muted={muted}
             {...this.props.data}
           />

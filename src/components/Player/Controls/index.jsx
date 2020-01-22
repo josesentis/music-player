@@ -22,25 +22,29 @@ const Controls = ({
   currentTime,
   songDuration
 }) => (
-  <ControlsStyled>
-    {/*<Control onClick={stop} icon={'stop'} />*/}
-    <ProgressBar
-      onChange={handleProgress}
-      currentTime={currentTime}
-      songDuration={songDuration}
-    />
-    <div className="controls">
-      {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
-      <Control onClick={handlePrevSong} icon={'prev'} />
-      <Control onClick={play} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
-      <Control onClick={handleNextSong} icon={'next'} />
-      <Control onClick={toggleRepeat} icon={'repeat'} type="small" />
-    </div>
-    <div className="controls">
-      <Control onClick={toggleMute} icon={muted || parseInt(volume) === 0 ? 'muted' : volume > 50 ? 'volumeHigh' : 'volumeLow'} />
-      <Range className="small" onChange={handleVolume} value={muted ? 0 : volume} />
-    </div>
-  </ControlsStyled>
-);
+    <ControlsStyled>
+      {/*<Control onClick={stop} icon={'stop'} />*/}
+      <ProgressBar
+        onChange={handleProgress}
+        currentTime={currentTime}
+        songDuration={songDuration}
+      />
+      <div className="controls">
+        {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
+        <Control onClick={handlePrevSong} icon={'prev'} />
+        <Control onClick={play} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
+        <Control onClick={handleNextSong} icon={'next'} />
+        <Control onClick={toggleRepeat} icon={'repeat'} type="small" className="toggle" />
+      </div>
+      <div className="controls">
+        <Control
+          onClick={toggleMute}
+          icon={muted || parseInt(volume) === 0 ? 'muted' : volume > 50 ? 'volumeHigh' : 'volumeLow'}
+          className="toggle active small"
+        />
+        <Range className="small" onChange={handleVolume} value={muted ? 0 : volume} />
+      </div>
+    </ControlsStyled>
+  );
 
 export default Controls;

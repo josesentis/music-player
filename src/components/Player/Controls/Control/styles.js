@@ -22,9 +22,9 @@ const ControlStyled = styled.button`
     border-radius: 50%;
   }
 
-  &.small {
-    opacity: .8;
+  &.toggle:not(.active) { opacity: .6; }
 
+  &.small {
     svg {
       height: ${btnSize * 0.75}px;
       width: ${btnSize * 0.75}px;
