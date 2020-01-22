@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 const GET_PLAYER_STATE = gql`
-  query IsPlayerActive {
+  query getPlayerState {
     playerState @client
     activePlayer @client
     muted @client
