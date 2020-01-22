@@ -15,7 +15,7 @@ const SongInfoStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: ${space()} 0;
+  margin: ${space(2)} 0 ${space(1.5)};
   padding: 0 ${space()};
   position: relative;
   text-align: center;
