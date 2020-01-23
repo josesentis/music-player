@@ -1,7 +1,7 @@
 {
   "90s": {
     "name": "90s music",
-    "backgroundImage": "assets/images/jamiexx.jpg",
+    "background": "assets/images/jamiexx.jpg",
     "list": [
       {
         "img": "assets/images/jamiexx.jpg",
@@ -38,12 +38,30 @@
         "src": "assets/files/jamiexx-gosh6.mp3",
         "singer": "Jamie XX 6",
         "title": "Gosh 6"
+      },
+      {
+        "img": "assets/images/jamiexx6.jpg",
+        "src": "assets/files/jamiexx-gosh6.mp3",
+        "singer": "Jamie XX 6",
+        "title": "Gosh 6"
+      },
+      {
+        "img": "assets/images/jamiexx6.jpg",
+        "src": "assets/files/jamiexx-gosh6.mp3",
+        "singer": "Jamie XX 6",
+        "title": "Gosh 6"
+      },
+      {
+        "img": "assets/images/jamiexx6.jpg",
+        "src": "assets/files/jamiexx-gosh6.mp3",
+        "singer": "Jamie XX 6",
+        "title": "Gosh 6"
       }
     ]
   },
   "viva-el-verano": {
     "name": "Viva el verano",
-    "backgroundImage": "assets/images/jamiexx.jpg",
+    "background": "assets/images/jamiexx.jpg",
     "list": [
       {
         "img": "assets/images/jamiexx.jpg",

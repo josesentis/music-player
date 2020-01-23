@@ -9,12 +9,11 @@ const PlayerStyled = styled.div`
   color: ${colors.neutro[100]};
   height: 100%;
   left: 0;
-  max-height: 667px;
-  max-width: 375px;
   overflow: hidden;
   position: absolute;
   top: calc(100% - ${TOGGLE_HEIGHT}px);
   width: 100%;
+  z-index: 1;
 
   &.active { top: 0; }
 
@@ -72,6 +71,7 @@ const Toggle = styled.button`
 
   .active & {
     background-color: transparent
+    text-align: center
     text-transform: uppercase;
 
     svg { transform: translate(0, -50%) rotate(0deg); }

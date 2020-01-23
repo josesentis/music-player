@@ -33,7 +33,7 @@ class App extends React.Component {
     return (
       <AppWrapper>
         <GlobalStyle />
-        {/* <Playlist /> */}
+        <Playlist />
         <Player />
       </AppWrapper>
     );

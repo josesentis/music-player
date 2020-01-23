@@ -143,6 +143,7 @@ const GlobalStyle = createGlobalStyle`
   .link {
     color: ${colors.neutro[100]};
     cursor: pointer;
+    text-align: left;
     text-decoration: none;
 
     svg {

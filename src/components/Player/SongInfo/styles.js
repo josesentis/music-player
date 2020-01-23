@@ -81,7 +81,6 @@ const SongInfoSmall = styled.div`
 
   .info {
     flex-grow: 1;
-    text-align: left;
 
     * { line-height: 1.4; }
   }
