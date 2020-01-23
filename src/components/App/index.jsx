@@ -2,6 +2,7 @@ import React from 'react';
 import 'normalize.css';
 
 import Player from '../Player';
+import Playlist from '../Playlist';
 
 import GlobalStyle from '../../styles/global';
 import { AppWrapper } from './styles';
@@ -32,6 +33,7 @@ class App extends React.Component {
     return (
       <AppWrapper>
         <GlobalStyle />
+        {/* <Playlist /> */}
         <Player />
       </AppWrapper>
     );

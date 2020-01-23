@@ -1,6 +1,8 @@
 import React from "react";
 import { graphql, withApollo } from 'react-apollo';
 
+import { client } from '../../apollo';
+import playlists from '../../data/playlist.json';
 import GET_PLAYER_STATE from './queries';
 import PlaylistStyled from './styles';
 
@@ -21,7 +23,7 @@ class Playlist extends React.PureComponent {
     console.log(playlist);
 
     return (
-      <PlaylistStyled>
+      <PlaylistStyled id="playlist">
         <ul>
           {playlist.map((song, index) =>
             <li key={index} className={songIndex === index ? 'active' : ''}>

@@ -130,7 +130,7 @@ class Player extends React.Component {
     if (!repeat) {
       const nextSong = songIndex + 1;
 
-      if (nextSong < playlists[playlistId].length) {
+      if (nextSong < playlists[playlistId].list.length) {
         client.writeData({
           data: {
             songIndex: nextSong,
@@ -192,7 +192,7 @@ class Player extends React.Component {
 
     if (loading) return <p>Loading...</p>;
 
-    const song = playlists[playlistId][songIndex];
+    const song = playlists[playlistId].list[songIndex];
 
     return (
       <PlayerStyled
