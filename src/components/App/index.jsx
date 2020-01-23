@@ -4,7 +4,7 @@ import 'normalize.css';
 import Player from '../Player';
 
 import GlobalStyle from '../../styles/global';
-import './App.css';
+import { AppWrapper } from './styles';
 
 class App extends React.Component {
   componentDidMount() {
@@ -24,10 +24,10 @@ class App extends React.Component {
 
   render = () => {
     return (
-      <>
+      <AppWrapper>
         <GlobalStyle />
         <Player />
-      </>
+      </AppWrapper>
     );
   }
 }
