@@ -1,21 +1,29 @@
 import React from 'react';
 
-class SongInfo extends React.PureComponent {
-  render() {
-    const { song } = this.props;
+import SongInfoStyled, { SongInfoSmall } from './styles';
 
-    return (
-      <header>
+const SongInfo = ({ song, variant = 'default' }) => {
+  const infoStyle = {
+    small: SongInfoSmall,
+    default: SongInfoStyled
+  };
+
+  const Component = infoStyle[variant];
+
+  return (
+    <Component className="song-info">
+      <div className="cover">
         <img
           src={song.img}
-          alt={song.title}
+          alt={`Title for ${song.title}`}
         />
-        <h1>
-          {song.singer} - {song.title}
-        </h1>
-      </header>
-    );
-  }
+      </div>
+      <div className="info">
+        <p className={variant === 'small' ? 'p-small p-nomargin' : ''}>{song.title}</p>
+        <p className="tag">{song.singer}</p>
+      </div>
+    </Component>
+  )
 };
 
 export default SongInfo;
