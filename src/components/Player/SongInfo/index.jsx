@@ -19,7 +19,7 @@ const SongInfo = ({ song, variant = 'default' }) => {
         />
       </div>
       <div className="info">
-        <p className={variant === 'small' ? 'p-small p-nomargin' : ''}>{song.title}</p>
+        <p className={variant === 'small' ? 'p-small' : 'p-big'}>{song.title}</p>
         <p className="tag">{song.singer}</p>
       </div>
     </Component>

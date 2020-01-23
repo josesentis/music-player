@@ -159,11 +159,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .p-nomargin { margin-bottom: ${space(.25)}; }
-
-  .p-small {
-    font-size: ${typography.fontSizeSmall}px;
-    margin-bottom: 0;
-  }
+  .p-big { font-size: ${typography.fontSizeBig}px; }
+  .p-small { margin-bottom: 0; }
 
   ${Utilities};
 `;

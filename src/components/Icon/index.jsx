@@ -11,7 +11,7 @@ import VolumeHigh from '../../assets/VolumeHigh';
 import VolumeLow from '../../assets/VolumeLow';
 
 const Icon = ({ variant }) => {
- const buttonType = {
+ const iconType = {
   play: Play,
   muted: Mute,
   next: Next,
@@ -22,7 +22,7 @@ const Icon = ({ variant }) => {
   volumeHigh: VolumeHigh,
   volumeLow: VolumeLow,
  };
- const Component = buttonType[variant];
+ const Component = iconType[variant];
 
  return <Component />;
 };

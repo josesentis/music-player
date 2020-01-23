@@ -7,7 +7,7 @@ const cache = new InMemoryCache();
 cache.writeData({
   data: {
     playerState: 'stop',
-    activePlayer: true,
+    activePlayer: false,
     muted: false,
     repeat: false,
     volume: 30,

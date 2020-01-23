@@ -239,8 +239,7 @@ class Player extends React.Component {
             currentTime={currentTime}
             songDuration={songDuration}
             handleProgress={this.handleProgress}
-            // stop={this.handleStop}
-            play={this.handlePlay}
+            handlePlay={this.handlePlay}
             handleNextSong={this.handleNextSong}
             handlePrevSong={this.handlePrevSong}
             handleVolume={this.handleVolume}
@@ -256,7 +255,6 @@ class Player extends React.Component {
   };
 }
 
-// export default Player;
 export default graphql(GET_PLAYER_STATE, {
   options: () => ({
     fetchPolicy: 'cache-and-network'

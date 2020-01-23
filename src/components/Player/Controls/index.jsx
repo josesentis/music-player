@@ -13,8 +13,7 @@ const Controls = ({
   handleVolume,
   muted,
   playerState,
-  play,
-  // stop,
+  handlePlay,
   toggleRepeat,
   // toggleRandom,
   toggleMute,
@@ -23,7 +22,6 @@ const Controls = ({
   songDuration
 }) => (
     <ControlsStyled>
-      {/*<Control onClick={stop} icon={'stop'} />*/}
       <ProgressBar
         onChange={handleProgress}
         currentTime={currentTime}
@@ -32,7 +30,7 @@ const Controls = ({
       <div className="controls">
         {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
         <Button onClick={handlePrevSong} icon={'prev'} />
-        <Button onClick={play} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
+        <Button onClick={handlePlay} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
         <Button onClick={handleNextSong} icon={'next'} />
         <Button onClick={toggleRepeat} icon={'repeat'} type="small" className="toggle" />
       </div>

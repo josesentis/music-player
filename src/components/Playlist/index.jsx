@@ -1,21 +1,51 @@
 import React from "react";
+import { graphql, withApollo } from 'react-apollo';
+
+import GET_PLAYER_STATE from './queries';
+import PlaylistStyled from './styles';
 
 class Playlist extends React.PureComponent {
-  render () {
-    const { currentIndex, handleSongChange, playlist } = this.props;
+  render() {
+    const {
+      data: {
+        songIndex,
+        playlistId,
+        loading
+      }
+    } = this.props;
+
+    if (loading) return <p>Loading...</p>;
+
+    const playlist = playlists[playlistId];
+
+    console.log(playlist);
 
     return (
-      <div className="playlists">
-        <h2>Playlist</h2>
+      <PlaylistStyled>
         <ul>
           {playlist.map((song, index) =>
-            <li key={index} className={currentIndex === index ? 'active' : ''}>
-              <button onClick={() => handleSongChange(index)}>{song.singer} - {song.title}</button>
+            <li key={index} className={songIndex === index ? 'active' : ''}>
+              <button
+                onClick={() => {
+                  client.writeData({
+                    data: {
+                      songIndex: index,
+                    }
+                  });
+                }}
+              >
+                {song.singer} - {song.title}
+              </button>
             </li>
           )}
         </ul>
-      </div>
-    )};
-  }
+      </PlaylistStyled>
+    )
+  };
+}
 
-export default Playlist;
+export default graphql(GET_PLAYER_STATE, {
+  options: () => ({
+    fetchPolicy: 'cache-and-network'
+  })
+})(withApollo(Playlist));
