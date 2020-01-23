@@ -1,19 +1,28 @@
 import React from 'react';
 
-import SongInfoStyled from './styles';
+import SongInfoStyled, { SongInfoSmall } from './styles';
 
-const SongInfo = ({ song }) => {
+const SongInfo = ({ song, variant = 'default' }) => {
+  const infoStyle = {
+    small: SongInfoSmall,
+    default: SongInfoStyled
+  };
+
+  const Component = infoStyle[variant];
+
   return (
-    <SongInfoStyled>
+    <Component>
       <div className="cover">
         <img
           src={song.img}
           alt={`Title for ${song.title}`}
         />
       </div>
-      <p>{song.title}</p>
-      <p className="tag">{song.singer}</p>
-    </SongInfoStyled>
+      <div className="info">
+        <p className={variant === 'small' ? 'p-small p-nomargin' : ''}>{song.title}</p>
+        <p className="tag">{song.singer}</p>
+      </div>
+    </Component>
   )
 };
 

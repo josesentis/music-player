@@ -1,14 +1,14 @@
 import React from "react";
 import { graphql, withApollo } from 'react-apollo';
 
+import Chevron from '../../assets/Chevron';
 import Controls from './Controls';
 import SongInfo from './SongInfo';
-import Toggle from './Toggle';
 
 import { client } from '../../apollo';
 import playlists from '../../data/playlist.json';
 import GET_PLAYER_STATE from './queries';
-import PlayerStyled from './styles';
+import PlayerStyled, { Toggle } from './styles';
 
 class Player extends React.Component {
   state = {
@@ -200,7 +200,19 @@ class Player extends React.Component {
       >
         <span className="background"></span>
         <div className="content">
-          <Toggle />
+          <Toggle
+            onClick={() => {
+              client.writeData({
+                data: {
+                  activePlayer: !activePlayer,
+                }
+              });
+            }}
+          >
+            <Chevron />
+            {activePlayer && <span className="p-small">Now playing</span>}
+            {!activePlayer && (<SongInfo song={song} variant="small" />)}
+          </Toggle>
           <SongInfo song={song} />
           <audio
             muted={muted}

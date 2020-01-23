@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { colors, hexToRgb } from '../../styles';
-import { TOGGLE_HEIGHT } from './Toggle/styles';
+import { colors, hexToRgb, space } from '../../styles';
 
 const rgb = hexToRgb(colors.neutro[900]);
+const TOGGLE_HEIGHT = 48;
 
 const PlayerStyled = styled.div`
   color: ${colors.neutro[100]};
@@ -41,4 +41,31 @@ const PlayerStyled = styled.div`
   }
 `;
 
+
+const Toggle = styled.button`
+  background-color: ${colors.neutro[900]};
+  height: ${TOGGLE_HEIGHT}px;
+  padding: 0 ${space()};
+  position: relative;
+  width: 100%;
+
+  svg {
+    fill: ${colors.neutro[100]};
+    left: ${space()};
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%) rotate(180deg);
+    translate(0, -50%) rotate(0deg);
+    width: 20px;
+  }
+
+  .active & {
+    background-color: transparent
+    text-transform: uppercase;
+
+    svg { transform: translate(0, -50%) rotate(0deg); }
+  }
+`;
+
 export default PlayerStyled;
+export { Toggle };

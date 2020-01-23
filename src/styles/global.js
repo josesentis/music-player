@@ -154,12 +154,15 @@ const GlobalStyle = createGlobalStyle`
     ${baseParagraph};
     ${baseParagraphFormat}
 
-    &.tag {
-      color: ${colors.neutro.base} !important;
-      margin-bottom: 0 !important;
-    }
+    &.tag { margin-bottom: 0 !important; }
 
-    &.p-nomargin { margin-bottom: ${space(.25)}; }
+  }
+
+  .p-nomargin { margin-bottom: ${space(.25)}; }
+
+  .p-small {
+    font-size: ${typography.fontSizeSmall}px;
+    margin-bottom: 0;
   }
 
   ${Utilities};

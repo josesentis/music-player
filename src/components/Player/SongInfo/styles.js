@@ -4,6 +4,7 @@ import { space, colors, hexToRgb } from '../../../styles';
 
 const rgb = hexToRgb(colors.neutro[700]);
 const imgSize = 180;
+const imgSizeSmall = 25;
 const increment = 50;
 
 /**
@@ -58,4 +59,34 @@ const SongInfoStyled = styled.div`
   }
 `;
 
+const SongInfoSmall = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: ${space(2)};
+  position: relative;
+
+  .cover {
+    border-radius: 50%;
+    position: relative;
+    margin-right: ${space()};
+
+    img {
+      height: ${imgSizeSmall}px;
+      border-radius: 50%;
+      position: relative;
+      width: ${imgSizeSmall}px;
+      z-index: 2;
+    }
+  }
+
+  .info {
+    flex-grow: 1;
+    text-align: left;
+
+    * { line-height: 1.4; }
+  }
+`;
+
 export default SongInfoStyled;
+export { SongInfoSmall };
