@@ -63,7 +63,6 @@ const SongInfoSmall = styled.div`
   align-items: center;
   display: flex;
   justify-content: flex-start;
-  margin-left: ${space(2)};
   position: relative;
 
   .cover {

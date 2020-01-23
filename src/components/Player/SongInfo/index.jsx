@@ -11,7 +11,7 @@ const SongInfo = ({ song, variant = 'default' }) => {
   const Component = infoStyle[variant];
 
   return (
-    <Component>
+    <Component className="song-info">
       <div className="cover">
         <img
           src={song.img}

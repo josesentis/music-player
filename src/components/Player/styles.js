@@ -49,14 +49,25 @@ const Toggle = styled.button`
   position: relative;
   width: 100%;
 
-  svg {
-    fill: ${colors.neutro[100]};
-    left: ${space()};
+  .song-info { margin: 0 ${space(2)}; }
+
+  .icon,
+  button {
     position: absolute;
     top: 50%;
+  }
+
+  .icon {
+    fill: ${colors.neutro[100]};
+    left: ${space()};
     transform: translate(0, -50%) rotate(180deg);
-    translate(0, -50%) rotate(0deg);
     width: 20px;
+  }
+
+  button {
+    padding: 0;
+    right: ${space()};
+    transform: translate(0, -50%);
   }
 
   .active & {

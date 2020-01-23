@@ -2,6 +2,7 @@ import React from "react";
 import { graphql, withApollo } from 'react-apollo';
 
 import Chevron from '../../assets/Chevron';
+import Button from '../Button';
 import Controls from './Controls';
 import SongInfo from './SongInfo';
 
@@ -175,6 +176,7 @@ class Player extends React.Component {
   render() {
     const {
       data: {
+        playerState,
         activePlayer,
         muted,
         songIndex,
@@ -209,9 +211,20 @@ class Player extends React.Component {
               });
             }}
           >
-            <Chevron />
+            <Chevron className="icon" />
             {activePlayer && <span className="p-small">Now playing</span>}
-            {!activePlayer && (<SongInfo song={song} variant="small" />)}
+            {!activePlayer && (
+              <>
+                <SongInfo song={song} variant="small" />
+                <Button
+                  onClick={event => {
+                    event.stopPropagation();
+                    this.handlePlay();
+                  }}
+                  icon={playerState === 'play' ? 'pause' : 'play'}
+                />
+              </>
+            )}
           </Toggle>
           <SongInfo song={song} />
           <audio
@@ -234,6 +247,7 @@ class Player extends React.Component {
             toggleMute={this.toggleMute}
             toggleRepeat={this.toggleRepeat}
             muted={muted}
+            playerState={playerState}
             {...this.props.data}
           />
         </div>
