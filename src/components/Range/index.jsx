@@ -7,7 +7,7 @@ class Range extends React.PureComponent {
     const { onChange, value, name } = this.props;
 
     return(
-      <RangeStyled elapsed={value}>
+      <RangeStyled elapsed={value} className="range">
         <input
           type="range"
           name={name}

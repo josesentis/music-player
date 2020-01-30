@@ -2,6 +2,12 @@ import styled from 'styled-components';
 
 import { colors, gradient } from '../../styles';
 
+const modifiers = `
+  .small & {
+    height: 2px;
+  }
+`;
+
 const thumbStyles = `
   background: transparent;
   border: none;
@@ -12,6 +18,8 @@ const thumbStyles = `
   margin-top: 0px;
   -webkit-appearance: none;
   width: 5px;
+
+  ${modifiers}
 `;
 
 const trackStyles = `
@@ -22,9 +30,13 @@ const trackStyles = `
   cursor: pointer;
   height: 5px;
   width: 100%;
+
+  ${modifiers}
 `;
 
 const RangeStyled = styled.div`
+  ${modifiers}
+
   input[type=range] {
     border-radius: 4px;
     position: relative;
@@ -40,6 +52,11 @@ const RangeStyled = styled.div`
       position: absolute;
       top: 0;
       width: ${props => props.elapsed}%;
+    }
+
+    .small & {
+      margin: 0;
+      position: static;
     }
   }
 

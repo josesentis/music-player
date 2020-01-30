@@ -76,6 +76,14 @@ const Toggle = styled.button`
 
     svg { transform: translate(0, -50%) rotate(0deg); }
   }
+
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+  }
 `;
 
 export default PlayerStyled;

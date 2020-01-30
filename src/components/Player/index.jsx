@@ -3,6 +3,7 @@ import { graphql, withApollo } from 'react-apollo';
 
 import Chevron from '../../assets/Chevron';
 import Button from '../Button';
+import ProgressBar from '../ProgressBar';
 import Controls from './Controls';
 import SongInfo from './SongInfo';
 
@@ -215,6 +216,13 @@ class Player extends React.Component {
             {activePlayer && <span className="p-small">Now playing</span>}
             {!activePlayer && (
               <>
+                <ProgressBar
+                  onChange={this.handleProgress}
+                  currentTime={currentTime}
+                  songDuration={songDuration}
+                  name='toggle-progress'
+                  variant='small'
+                />
                 <SongInfo song={song} variant="small" />
                 <Button
                   onClick={event => {
