@@ -87,4 +87,4 @@ const Toggle = styled.button`
 `;
 
 export default PlayerStyled;
-export { Toggle };
+export { Toggle, TOGGLE_HEIGHT };

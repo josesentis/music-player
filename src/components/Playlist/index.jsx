@@ -45,8 +45,11 @@ class Playlist extends React.PureComponent {
                     });
                   }}
                 >
-                  <span className="index">{this.formatSongIndex(index + 1)}</span>
-                  {song.singer} - {song.title}
+                  <span className="index tag">{this.formatSongIndex(index + 1)}</span>
+                  <div className="text">
+                    <p>{song.title}</p>
+                    <p className="tag">{song.singer}</p>
+                  </div>
                 </Song>
               </li>
             )}

@@ -83,6 +83,8 @@ const GlobalStyle = createGlobalStyle`
     appearance: none;
     background: none repeat scroll 0 0 transparent;
     border: 0;
+
+    &:focus { outline: none; }
   }
 
   iframe {

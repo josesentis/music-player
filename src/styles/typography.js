@@ -3,8 +3,8 @@ const typography = {
   fontDisplayFamily: 'Helvetica, sans-serif',
   fontRatio: 1.2,
   fontSizeBig: 18,
-  fontSize: 15,
-  fontSizeSmall: 10,
+  fontSize: 16,
+  fontSizeSmall: 12,
   lineHeight: 1.25
 };
 
