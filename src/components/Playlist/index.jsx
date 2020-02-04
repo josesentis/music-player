@@ -31,8 +31,10 @@ class Playlist extends React.PureComponent {
       >
         <span className="hero"></span>
         <div className="content">
-          <p className="p-big">{playlist.name}</p>
-          <p className="tag">{playlist.list.length}</p>
+          <div className="header">
+            <p className="p-big capitalize">{playlist.name}</p>
+            <p>{playlist.list.length} Songs</p>
+          </div>
           <ul>
             {playlist.list.map((song, index) =>
               <li key={index} className={songIndex === index ? 'active' : ''}>
