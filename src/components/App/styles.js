@@ -10,6 +10,11 @@ const AppWrapper = styled.div`
   max-width: ${MAX_WIDTH}px;
   overflow: hidden;
   position: relative;
+
+  > * {
+    max-height: inherit;
+    max-width: inherit;
+  }
 `;
 
 export { AppWrapper };
