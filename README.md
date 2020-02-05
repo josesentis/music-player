@@ -21,3 +21,6 @@ Music player build using:
 - Multiple playlists
 - Keyboard interaction
 - Connect with music provider (To be defined)
+
+## Link
+Visit the player [here](https://josesentis.github.io/music-player/)
