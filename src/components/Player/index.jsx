@@ -204,6 +204,7 @@ class Player extends React.Component {
         <span className="background"></span>
         <div className="content">
           <Toggle
+            role="button"
             onClick={() => {
               client.writeData({
                 data: {

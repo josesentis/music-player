@@ -40,14 +40,16 @@ const PlayerStyled = styled.div`
   }
 `;
 
-
-const Toggle = styled.button`
+const Toggle = styled.div`
+  align-items: center;
   background-color: ${colors.neutro[900]};
+  display: flex;
   height: ${TOGGLE_HEIGHT}px;
   padding: 0 ${space()};
   position: relative;
   width: 100%;
 
+  .active & { justify-content: center; }
   .song-info { margin: 0 ${space(2)}; }
 
   .icon,

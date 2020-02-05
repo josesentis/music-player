@@ -5,6 +5,9 @@ import { space, gradient } from '../../styles';
 const btnSize = 30;
 
 const ButtonStyled = styled.button`
+  align-items: center;
+  display: flex;
+  justify-content: center;
   padding: ${space(.5)};
 
   svg {
