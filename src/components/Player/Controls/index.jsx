@@ -28,19 +28,22 @@ const Controls = ({
         songDuration={songDuration}
       />
       <div className="controls">
-        {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
         <Button onClick={handlePrevSong} icon={'prev'} />
         <Button onClick={handlePlay} icon={playerState === 'play' ? 'pause' : 'play'} type="large" />
         <Button onClick={handleNextSong} icon={'next'} />
-        <Button onClick={toggleRepeat} icon={'repeat'} type="small" className="toggle" />
       </div>
       <div className="controls">
-        <Button
-          onClick={toggleMute}
-          icon={muted || parseInt(volume) === 0 ? 'muted' : volume > 50 ? 'volumeHigh' : 'volumeLow'}
-          className="toggle active small"
-        />
-        <Range className="small" onChange={handleVolume} value={muted ? 0 : volume} />
+        {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
+        <div style={{ width: `${44}px` }}></div>
+        <Button onClick={toggleRepeat} icon={'repeat'} type="small" className="toggle" />
+        <div className="volume">
+          <Button
+            onClick={toggleMute}
+            icon={muted || parseInt(volume) === 0 ? 'muted' : volume > 50 ? 'volumeHigh' : 'volumeLow'}
+            className="toggle active small"
+          />
+          <Range className="small" onChange={handleVolume} value={muted ? 0 : volume} />
+        </div>
       </div>
     </ControlsStyled>
   );

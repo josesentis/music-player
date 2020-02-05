@@ -23,7 +23,7 @@ const SongInfoStyled = styled.div`
 
   .cover {
     border-radius: 50%;
-    margin: ${space(2)} 0 ${space(4)};
+    margin: ${space(2)} 0 ${space(3.5)};
     position: relative;
 
     &::before,

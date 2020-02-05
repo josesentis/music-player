@@ -9,10 +9,29 @@ const ControlsStyled = styled.div`
   .controls {
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin: ${space()} 0;
+
+    &--stretch { justify-content: space-between; }
+
+    > * {
+      margin: 0 ${space(.75)};
+
+      &:first-child { margin-left: 0; }
+      &:last-child { margin-right: 0; }
+    }
   }
 
   .progress-bar { flex-grow: 1; }
+
+  .volume {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+
+    .range { margin-top: -9px; }
+  }
 `;
 
 export default ControlsStyled;
