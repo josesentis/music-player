@@ -22,8 +22,6 @@ class Playlist extends React.PureComponent {
 
     const playlist = playlists[playlistId];
 
-    console.log(playlist);
-
     return (
       <PlaylistStyled
         id="playlist"

@@ -7,12 +7,13 @@ const cache = new InMemoryCache();
 cache.writeData({
   data: {
     playerState: 'stop',
-    activePlayer: false,
+    activePlayer: true,
     muted: false,
     repeat: false,
     volume: 30,
     songIndex: 3,
-    playlistId: '90s'
+    playlistId: '90s',
+    randomOrder: []
   }
 });
 

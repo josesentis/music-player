@@ -8,6 +8,7 @@ import Controls from './Controls';
 import SongInfo from './SongInfo';
 
 import { client } from '../../apollo';
+import { shuffle } from '../../utils';
 import playlists from '../../data/playlist.json';
 import GET_PLAYER_STATE from './queries';
 import PlayerStyled, { Toggle } from './styles';
@@ -72,20 +73,22 @@ class Player extends React.Component {
     this._player.addEventListener('ended', this.handleNextSong);
   };
 
-  // setRandomOrders = () => {
-  //   let randomOrders;
+  setRandomOrders = () => {
+    const { playerState } = this.props.data;
 
-  //   if (this.state.playerState !== "stop") {
-  //     const tempplaylist = this.state.playlist.slice();
+    let randomOrders;
 
-  //     randomOrders = tempplaylist.splice(this.state.songIndex, 1);
-  //     randomOrders = [...randomOrders, ...shuffle(tempplaylist)];
-  //   } else {
-  //     randomOrders = shuffle(this.state.playlist);
-  //   }
+    if (playerState !== "stop") {
+      const tempplaylist = this.state.playlist.slice();
 
-  //   this.setState({ randomOrders });
-  // }
+      randomOrders = tempplaylist.splice(this.state.songIndex, 1);
+      randomOrders = [...randomOrders, ...shuffle(tempplaylist)];
+    } else {
+      randomOrders = shuffle(this.state.playlist);
+    }
+
+    this.setState({ randomOrders });
+  }
 
   handlePlay = () => {
     const { playerState } = this.props.data;
@@ -116,14 +119,11 @@ class Player extends React.Component {
   toggleMute = () => { client.writeData({ data: { muted: !this.props.data.muted } }); }
   toggleRepeat = () => { client.writeData({ data: { repeat: !this.props.data.repeat } }); }
 
-  // toggleRandom = () => {
-  //   console.log('Handle Random');
+  toggleRandom = () => {
+    if (!this.state.random) { this.setRandomOrders(); }
 
-  //   if (!this.state.random) { this.setRandomOrders(); }
-
-  //   this.setState({ random: !this.state.random });
-  //   client.writeData({ data: { random: !this.props.data.random } })
-  // }
+    client.writeData({ data: { random: !this.props.data.random } });
+  }
 
   handleNextSong = () => {
     const { songIndex, playlistId, playerState, repeat } = this.props.data;

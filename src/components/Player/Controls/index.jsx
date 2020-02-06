@@ -15,7 +15,7 @@ const Controls = ({
   playerState,
   handlePlay,
   toggleRepeat,
-  // toggleRandom,
+  toggleRandom,
   toggleMute,
   volume,
   currentTime,
@@ -33,8 +33,7 @@ const Controls = ({
         <Button onClick={handleNextSong} icon={'next'} />
       </div>
       <div className="controls">
-        {/* <Control onClick={toggleRandom} icon={'random'} type="small" /> */}
-        <div style={{ width: `${44}px` }}></div>
+        <Button onClick={toggleRandom} icon={'random'} type="small" className="toggle" />
         <Button onClick={toggleRepeat} icon={'repeat'} type="small" className="toggle" />
         <div className="volume">
           <Button
