@@ -23,12 +23,6 @@ class App extends React.Component {
     document.documentElement.classList.add(touchClass);
   }
 
-  handleSongChange = currentSongIndex => {
-    console.log('Handle Song Change');
-
-    this.setState({ currentSongIndex });
-  }
-
   render = () => {
     return (
       <AppWrapper>
