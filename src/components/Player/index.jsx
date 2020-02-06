@@ -1,17 +1,17 @@
 import React from "react";
-import { graphql, withApollo } from 'react-apollo';
+import { graphql, withApollo } from "react-apollo";
 
-import Chevron from '../../assets/Chevron';
-import Button from '../Button';
-import ProgressBar from '../ProgressBar';
-import Controls from './Controls';
-import SongInfo from './SongInfo';
+import Chevron from "../../assets/Chevron";
+import Button from "../Button";
+import ProgressBar from "../ProgressBar";
+import Controls from "./Controls";
+import SongInfo from "./SongInfo";
 
-import { client } from '../../apollo';
-import { shuffle } from '../../utils';
-import playlists from '../../data/playlist.json';
-import GET_PLAYER_STATE from './queries';
-import PlayerStyled, { Toggle } from './styles';
+import { client } from "../../apollo";
+import { shuffle } from "../../utils";
+import playlists from "../../data/playlist.json";
+import GET_PLAYER_STATE from "./queries";
+import PlayerStyled, { Toggle } from "./styles";
 
 class Player extends React.Component {
   state = {
@@ -29,7 +29,7 @@ class Player extends React.Component {
         this._player.pause();
         this._player.load();
 
-        if (this.props.data.playerState === 'play') this._player.play();
+        if (this.props.data.playerState === "play") this._player.play();
       }
 
       this._player.volume = this.props.data.volume / 100;
@@ -43,7 +43,9 @@ class Player extends React.Component {
   };
 
   handleProgress = event => {
-    const currentTime = Math.floor(this._player.duration * event.currentTarget.value / 100);
+    const currentTime = Math.floor(
+      (this._player.duration * event.currentTarget.value) / 100
+    );
 
     this.updateTime(currentTime);
     this._player.currentTime = currentTime;
@@ -52,7 +54,7 @@ class Player extends React.Component {
   clearPlayer = () => {
     clearInterval(this._interval);
     this._player.currentTime = 0;
-    this._player.removeEventListener('ended', this.handleNextSong);
+    this._player.removeEventListener("ended", this.handleNextSong);
 
     this.setState({
       currentTime: 0,
@@ -70,39 +72,34 @@ class Player extends React.Component {
       this.updateTime(currentTime);
     }, 100);
 
-    this._player.addEventListener('ended', this.handleNextSong);
+    this._player.addEventListener("ended", this.handleNextSong);
   };
-
+  //
   setRandomOrders = () => {
-    const { playerState } = this.props.data;
+    const { songIndex, playlistId } = this.props.data;
+    const nElements = playlists[playlistId].list.length;
+    let randomOrders = [];
 
-    let randomOrders;
+    for (let i = songIndex; i < nElements; i++) randomOrders.push(i);
 
-    if (playerState !== "stop") {
-      const tempplaylist = this.state.playlist.slice();
+    randomOrders = shuffle(randomOrders);
 
-      randomOrders = tempplaylist.splice(this.state.songIndex, 1);
-      randomOrders = [...randomOrders, ...shuffle(tempplaylist)];
-    } else {
-      randomOrders = shuffle(this.state.playlist);
-    }
-
-    this.setState({ randomOrders });
-  }
+    client.writeData({ data: { randomOrders } });
+  };
 
   handlePlay = () => {
     const { playerState } = this.props.data;
 
-    if (playerState === 'play') {
+    if (playerState === "play") {
       this._player.pause();
       clearInterval(this._interval);
-      client.writeData({ data: { playerState: 'pause' } });
+      client.writeData({ data: { playerState: "pause" } });
     } else {
       this._player.play();
       this.startProgressBar();
-      client.writeData({ data: { playerState: 'play' } });
+      client.writeData({ data: { playerState: "play" } });
     }
-  }
+  };
 
   handleStop = () => {
     this._player.pause();
@@ -111,19 +108,25 @@ class Player extends React.Component {
     client.writeData({
       data: {
         songIndex: 0,
-        playerState: 'stop'
+        playerState: "stop"
       }
     });
-  }
+  };
 
-  toggleMute = () => { client.writeData({ data: { muted: !this.props.data.muted } }); }
-  toggleRepeat = () => { client.writeData({ data: { repeat: !this.props.data.repeat } }); }
+  toggleMute = () => {
+    client.writeData({ data: { muted: !this.props.data.muted } });
+  };
+  toggleRepeat = () => {
+    client.writeData({ data: { repeat: !this.props.data.repeat } });
+  };
 
   toggleRandom = () => {
-    if (!this.state.random) { this.setRandomOrders(); }
+    if (!this.props.data.random) {
+      this.setRandomOrders();
+    }
 
     client.writeData({ data: { random: !this.props.data.random } });
-  }
+  };
 
   handleNextSong = () => {
     const { songIndex, playlistId, playerState, repeat } = this.props.data;
@@ -135,17 +138,17 @@ class Player extends React.Component {
         client.writeData({
           data: {
             songIndex: nextSong,
-            playerState: 'play'
+            playerState: "play"
           }
         });
-      } else if (playerState !== 'stop') {
+      } else if (playerState !== "stop") {
         this.handleStop();
       }
     }
 
     this.clearPlayer();
     this.startProgressBar();
-  }
+  };
 
   handlePrevSong = () => {
     const { songIndex, repeat } = this.props.data;
@@ -156,14 +159,14 @@ class Player extends React.Component {
       client.writeData({
         data: {
           songIndex: nextSong,
-          playerState: 'play'
+          playerState: "play"
         }
       });
     }
 
     this.clearPlayer();
     this.startProgressBar();
-  }
+  };
 
   handleVolume = event => {
     client.writeData({
@@ -172,24 +175,14 @@ class Player extends React.Component {
         volume: event.currentTarget.value
       }
     });
-  }
+  };
 
   render() {
     const {
-      data: {
-        playerState,
-        activePlayer,
-        muted,
-        songIndex,
-        playlistId,
-        loading
-      }
+      data: { playerState, activePlayer, muted, songIndex, playlistId, loading }
     } = this.props;
 
-    const {
-      currentTime,
-      songDuration,
-    } = this.state;
+    const { currentTime, songDuration } = this.state;
 
     if (loading) return <p>Loading...</p>;
 
@@ -199,7 +192,7 @@ class Player extends React.Component {
       <PlayerStyled
         id="player"
         background={song.img}
-        className={activePlayer ? 'active' : ''}
+        className={activePlayer ? "active" : ""}
       >
         <span className="background"></span>
         <div className="content">
@@ -208,7 +201,7 @@ class Player extends React.Component {
             onClick={() => {
               client.writeData({
                 data: {
-                  activePlayer: !activePlayer,
+                  activePlayer: !activePlayer
                 }
               });
             }}
@@ -221,8 +214,8 @@ class Player extends React.Component {
                   onChange={this.handleProgress}
                   currentTime={currentTime}
                   songDuration={songDuration}
-                  name='toggle-progress'
-                  variant='small'
+                  name="toggle-progress"
+                  variant="small"
                 />
                 <SongInfo song={song} variant="small" />
                 <Button
@@ -230,7 +223,7 @@ class Player extends React.Component {
                     event.stopPropagation();
                     this.handlePlay();
                   }}
-                  icon={playerState === 'play' ? 'pause' : 'play'}
+                  icon={playerState === "play" ? "pause" : "play"}
                 />
               </>
             )}
@@ -254,6 +247,7 @@ class Player extends React.Component {
             handleVolume={this.handleVolume}
             toggleMute={this.toggleMute}
             toggleRepeat={this.toggleRepeat}
+            toggleRandom={this.toggleRandom}
             muted={muted}
             playerState={playerState}
             {...this.props.data}
@@ -261,11 +255,11 @@ class Player extends React.Component {
         </div>
       </PlayerStyled>
     );
-  };
+  }
 }
 
 export default graphql(GET_PLAYER_STATE, {
   options: () => ({
-    fetchPolicy: 'cache-and-network'
+    fetchPolicy: "cache-and-network"
   })
 })(withApollo(Player));

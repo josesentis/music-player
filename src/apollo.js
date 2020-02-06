@@ -10,10 +10,11 @@ cache.writeData({
     activePlayer: true,
     muted: false,
     repeat: false,
+    random: false,
+    randomOrder: [],
     volume: 30,
-    songIndex: 3,
-    playlistId: '90s',
-    randomOrder: []
+    songIndex: 0,
+    playlistId: '90s'
   }
 });
 
