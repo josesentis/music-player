@@ -78,13 +78,13 @@ class Player extends React.Component {
   setRandomOrders = () => {
     const { songIndex, playlistId } = this.props.data;
     const nElements = playlists[playlistId].list.length;
-    let randomOrders = [];
+    let randomOrder = [];
 
-    for (let i = songIndex; i < nElements; i++) randomOrders.push(i);
+    for (let i = songIndex; i < nElements; i++) randomOrder.push(i);
 
-    randomOrders = shuffle(randomOrders);
+    randomOrder = shuffle(randomOrder);
 
-    client.writeData({ data: { randomOrders } });
+    client.writeData({ data: { randomOrder } });
   };
 
   handlePlay = () => {
