@@ -84,6 +84,7 @@ const Toggle = styled.div`
     top: 0;
     left: 0;
     margin: 0;
+    pointer-events: none;
     width: 100%;
   }
 `;

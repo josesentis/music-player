@@ -3,7 +3,6 @@ Music player build using:
 
 - ReactJS
 - Styled Components
-- Popmotion animation library
 
 ## Basic Features
 - :white_check_mark: Basic controls (Play/Pause, Stop, Next/Prev songs)
@@ -15,7 +14,7 @@ Music player build using:
 - :white_check_mark: Auto change song
 
 ## Advanced Features
-- Random order
+- :white_check_mark: Random order
 - :white_check_mark: Playlist with active song
 - :white_check_mark: Chose song from the playlist
 - Multiple playlists

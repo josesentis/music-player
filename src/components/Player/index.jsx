@@ -29,7 +29,7 @@ class Player extends React.Component {
         this._player.pause();
         this._player.load();
 
-        if (this.props.data.playerState === "play") this._player.play();
+        if (this.props.data.playerState === 'play') this._player.play();
       }
 
       this._player.volume = this.props.data.volume / 100;
@@ -54,7 +54,7 @@ class Player extends React.Component {
   clearPlayer = () => {
     clearInterval(this._interval);
     this._player.currentTime = 0;
-    this._player.removeEventListener("ended", this.handleNextSong);
+    this._player.removeEventListener('ended', this.handleNextSong);
 
     this.setState({
       currentTime: 0,
@@ -72,32 +72,42 @@ class Player extends React.Component {
       this.updateTime(currentTime);
     }, 100);
 
-    this._player.addEventListener("ended", this.handleNextSong);
+    this._player.addEventListener('ended', this.handleNextSong);
   };
-  //
-  setRandomOrders = () => {
+
+  setRandomOrder = () => {
     const { songIndex, playlistId } = this.props.data;
     const nElements = playlists[playlistId].list.length;
     let randomOrder = [];
+    let tempRandomOrder = [];
 
-    for (let i = songIndex; i < nElements; i++) randomOrder.push(i);
+    randomOrder.push(songIndex);
 
-    randomOrder = shuffle(randomOrder);
+    for (let i = 0; i < nElements; i++) {
+      if (i !== songIndex) tempRandomOrder.push(i);
+    }
 
-    client.writeData({ data: { randomOrder } });
+    randomOrder = [...randomOrder, ...shuffle(tempRandomOrder)];
+
+    client.writeData({
+      data: {
+        randomOrder,
+        songIndex: 0
+      }
+    });
   };
 
   handlePlay = () => {
     const { playerState } = this.props.data;
 
-    if (playerState === "play") {
+    if (playerState === 'play') {
       this._player.pause();
       clearInterval(this._interval);
-      client.writeData({ data: { playerState: "pause" } });
+      client.writeData({ data: { playerState: 'pause' } });
     } else {
       this._player.play();
       this.startProgressBar();
-      client.writeData({ data: { playerState: "play" } });
+      client.writeData({ data: { playerState: 'play' } });
     }
   };
 
@@ -108,7 +118,8 @@ class Player extends React.Component {
     client.writeData({
       data: {
         songIndex: 0,
-        playerState: "stop"
+        playerState: 'stop',
+        randomOrder: []
       }
     });
   };
@@ -116,16 +127,22 @@ class Player extends React.Component {
   toggleMute = () => {
     client.writeData({ data: { muted: !this.props.data.muted } });
   };
+
   toggleRepeat = () => {
     client.writeData({ data: { repeat: !this.props.data.repeat } });
   };
 
   toggleRandom = () => {
-    if (!this.props.data.random) {
-      this.setRandomOrders();
-    }
+    const { random, songIndex, randomOrder } = this.props.data;
 
-    client.writeData({ data: { random: !this.props.data.random } });
+    if (!random) this.setRandomOrder();
+
+    client.writeData({
+      data: {
+        random: !random,
+        songIndex: random ? randomOrder[songIndex] : songIndex
+      }
+    });
   };
 
   handleNextSong = () => {
@@ -138,10 +155,10 @@ class Player extends React.Component {
         client.writeData({
           data: {
             songIndex: nextSong,
-            playerState: "play"
+            playerState: 'play'
           }
         });
-      } else if (playerState !== "stop") {
+      } else if (playerState !== 'stop') {
         this.handleStop();
       }
     }
@@ -159,7 +176,7 @@ class Player extends React.Component {
       client.writeData({
         data: {
           songIndex: nextSong,
-          playerState: "play"
+          playerState: 'play'
         }
       });
     }
@@ -179,14 +196,25 @@ class Player extends React.Component {
 
   render() {
     const {
-      data: { playerState, activePlayer, muted, songIndex, playlistId, loading }
+      data: {
+        playerState,
+        activePlayer,
+        muted,
+        songIndex,
+        playlistId,
+        loading,
+        random,
+        randomOrder
+      }
     } = this.props;
-
     const { currentTime, songDuration } = this.state;
+    let currentSongIndex;
 
     if (loading) return <p>Loading...</p>;
+    if (random) currentSongIndex = randomOrder[songIndex];
+    else currentSongIndex = songIndex;
 
-    const song = playlists[playlistId].list[songIndex];
+    const song = playlists[playlistId].list[currentSongIndex];
 
     return (
       <PlayerStyled
