@@ -3,6 +3,7 @@ Music player build using:
 
 - ReactJS
 - Styled Components
+- GraphQL & Apollo
 
 ## Basic Features
 - :white_check_mark: Basic controls (Play/Pause, Stop, Next/Prev songs)
